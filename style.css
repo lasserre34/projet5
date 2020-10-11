@@ -25,45 +25,47 @@ padding-top:5%;
 h1{
     text-align: center;
 }
-.conteneur{
 
-    
+.tableauproduits{
     width:100%;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content: space-around;
-    margin-bottom: 5%;
 }
 
-.element{
-    padding-top:5%;
-    padding-left:5%;
-    padding-right:5%;
-    display: flex;
-    flex-wrap:wrap;
-    justify-content:space-around;
- width:20%;
- border:2px solid black;
- margin-top:5%;
-}
-
-.element3{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content: space-evenly;
-    color:black;
+.tb{
+height:100px;
 
 }
 
-.conteneur3{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content: space-evenly;
 
-}
+
 h4{
     text-align:center;
 }
 footer{
     margin-bottom:2%;
+}
+
+.element{
+    width:25%;
+}
+.nom{
+    width:25%;
+    text-align:center;
+
+}
+
+.conteneurproduit{
+   
+   padding:5%;
+}
+.conteneur3{
+    display:flex;
+justify-content: space-around;
+}
+
+.element3{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: space-around;
+    text-align:center;
+    width:33%
 }
