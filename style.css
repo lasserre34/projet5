@@ -4,14 +4,11 @@ body{
 
 }
 
-.page{
-    display:flex;
 
-}
 
-.element1{
-    width:70%;
-}
+
+
+
 
 .lien{
     width:30%;
@@ -26,37 +23,17 @@ h1{
     text-align: center;
 }
 
-.tableauproduits{
-    width:100%;
-}
-
-.tb{
-height:100px;
-
-}
 
 
 
-h4{
+h3,h4{
     text-align:center;
 }
 footer{
     margin-bottom:2%;
 }
 
-.element{
-    width:25%;
-}
-.nom{
-    width:25%;
-    text-align:center;
 
-}
-
-.conteneurproduit{
-   
-   padding:5%;
-}
 .conteneur3{
     display:flex;
 justify-content: space-around;
@@ -68,4 +45,25 @@ justify-content: space-around;
     justify-content: space-around;
     text-align:center;
     width:33%
+}
+
+.conteneur{
+    
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.elementproduit{
+    padding-top:5%;
+    padding-bottom:2.5%;
+}
+
+p{
+    text-align:center;
+}
+
+.fas{
+    width:10px;
+    color: black;
 }
