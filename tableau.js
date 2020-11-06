@@ -1,3 +1,6 @@
+
+
+
 // Fonction Produit me permettant de ne pas ecricre name: et prix: dans les objects //
 function Produits(image,nom,prix,description,) {
     this.image = image; 
@@ -42,18 +45,20 @@ function Produits(image,nom,prix,description,) {
         
                  const article = document.createElement("div");
                   article.innerHTML += `
-                 
-                  <img src=${produit1.image}>
-               <p>Nom: ${produit1.nom}</p>
-               <p>Prix: ${produit1.prix}</p>
-               <p>Description: ${produit1.description}</p>
-               <p>Selectionner la couleur</p>
-               <form name="selectcolor">
-               <input type="radio" name="choix1" value="rouge">Rouge<br>
-               <input type="radio" name="choix2" value="vert">Vert<br>
-               <input type="radio" name="choix3" value="jaune">Jaune<br>
-               <input type="button" name="ajoutaupanier" value="Ajouter au panier">
-               </form>` 
+                  <form name="monForm">
+         <img src=${produit1.image}>
+         <p>Nom: ${produit1.nom}</p>
+         <p>Prix: ${produit1.prix}</p>
+         <p>Description: ${produit1.description}</p>
+         <ul>
+         <li>Sélectionner la couleur du produit</li>
+         <li><input type="radio" name="couleur" value="rouge"/>Rouge</li>
+         <li> <input type="radio" name="couleur" value="vert"/>Vert</li>
+         <li><input type="radio" name="couleur" value="jaune"/>Jaune</li>
+         <li><input type="button" onclick="selectcolor1()" value="Ajouter au panier"/></li>
+         </ul>
+         </form>` 
+                
                   document.getElementById('app').appendChild(article)
               }
           },
@@ -65,16 +70,19 @@ function Produits(image,nom,prix,description,) {
           ficheproduit: function(){
               const article = document.createElement("div");
                article.innerHTML += `
-               <img src=${produit2.image}>
-               <p>Nom: ${produit2.nom}</p>
-               <p>Prix: ${produit2.prix}</p>
-               <p>Description: ${produit2.description}</p>
-               <form name="selectcolor">
-               <input type="radio" name="choix" value="rouge">Rouge<br>
-               <input type="radio" name="choix2" value="vert">Vert<br>
-               <input type="radio" name="choix3" value="jaune">Jaune<br>
-               <input type="button" name="ajoutaupanier" value="Ajouter au panier">
-               </form>` 
+               <form name="monForm">
+         <img src=${produit2.image}>
+         <p>Nom: ${produit2.nom}</p>
+         <p>Prix: ${produit2.prix}</p>
+         <p>Description: ${produit2.description}</p>
+         <ul>
+         <li>Sélectionner la couleur du produit</li>
+         <li><input type="radio" name="couleur" value="rouge"/>Rouge</li>
+         <li> <input type="radio" name="couleur" value="vert"/>Vert</li>
+         <li><input type="radio" name="couleur" value="jaune"/>Jaune</li>
+         <li><input type="button" onclick="selectcolor2()" value="Ajouter au panier"/></li>
+         </ul>
+         </form>` 
                 
                
               document.getElementById('app').appendChild(article)
@@ -86,16 +94,19 @@ function Produits(image,nom,prix,description,) {
       ficheproduit: function(){
           const article = document.createElement("div");
            article.innerHTML += `
-           <img src=${produit3.image}>
-           <p>Nom: ${produit3.nom}</p>
-           <p>Prix: ${produit3.prix}</p>
-           <p>Description: ${produit3.description}</p>
-           <form name="selectcolor">
-           <input type="radio" name="choix" value="rouge">Rouge<br>
-           <input type="radio" name="choix2" value="vert">Vert<br>
-           <input type="radio" name="choix3" value="jaune">Jaune<br>
-           <input type="button" name="ajoutaupanier" value="Ajouter au panier">
-           </form>` 
+           <form name="monForm">
+         <img src=${produit3.image}>
+         <p>Nom: ${produit3.nom}</p>
+         <p>Prix: ${produit3.prix}</p>
+         <p>Description: ${produit3.description}</p>
+         <ul>
+         <li>Sélectionner la couleur du produit</li>
+         <li><input type="radio" name="couleur" value="rouge"/>Rouge</li>
+         <li> <input type="radio" name="couleur" value="vert"/>Vert</li>
+         <li><input type="radio" name="couleur" value="jaune"/>Jaune</li>
+         <li><input type="button" onclick="selectcolor3()" value="Ajouter au panier"/></li>
+         </ul>
+         </form>` 
             
            
           document.getElementById('app').appendChild(article)
@@ -107,15 +118,18 @@ function Produits(image,nom,prix,description,) {
     ficheproduit: function(){
         const article = document.createElement("div");
          article.innerHTML += `
+         <form name="monForm" method="get" action="panier.html">
          <img src=${produit4.image}>
          <p>Nom: ${produit4.nom}</p>
          <p>Prix: ${produit4.prix}</p>
          <p>Description: ${produit4.description}</p>
-         <form name="selectcolor">
-         <input type="radio" name="choix" value="rouge">Rouge<br>
-         <input type="radio" name="choix2" value="vert">Vert<br>
-         <input type="radio" name="choix3" value="jaune">Jaune<br>
-         <input type="button" name="ajoutaupanier" value="Ajouter au panier">
+         <ul>
+         <li>Sélectionner la couleur du produit</li>
+         <li><input type="radio" name="couleur" value="rouge"/>Rouge</li>
+         <li> <input type="radio" name="couleur" value="vert"/>Vert</li>
+         <li><input type="radio" name="couleur" value="jaune"/>Jaune</li>
+         <li><input type="submit" onclick="selectcolor4()" value="Ajouter au panier"/></li>
+         </ul>
          </form>` 
           
          
@@ -128,15 +142,19 @@ function Produits(image,nom,prix,description,) {
     ficheproduit: function(){
         const article = document.createElement("div");
          article.innerHTML += `
+         <form name="monForm" action="panier.html"/>
+         <ul>
          <img src=${produit5.image}>
-         <p>Nom: ${produit5.nom}</p>
-         <p>Prix: ${produit5.prix}</p>
-         <p>Description: ${produit5.description}</p>
-         <form name="selectcolor">
-         <input type="radio" name="choix" value="rouge">Rouge<br>
-         <input type="radio" name="choix2" value="vert">Vert<br>
-         <input type="radio" name="choix3" value="jaune">Jaune<br>
-         <input type="button" name="ajoutaupanier" value="Ajouter au panier">
+         <li/>Nom: ${produit5.nom}</li>
+         <li/>Prix: ${produit5.prix}</li>
+         <li>Description: ${produit5.description}</li>
+         
+         <li>Sélectionner la couleur du produit</li>
+         <li><input type="radio" name="couleur" value="rouge"/>Rouge</li>
+         <li> <input type="radio" name="couleur" value="vert"/>Vert</li>
+         <li><input type="radio" name="couleur" value="jaune"/>Jaune</li>
+         <li><input class="panier" type="submit" onclick="selectcolor5()" value="Ajouter au panier"/></li>
+         </ul>
          </form>` 
           
          
@@ -144,9 +162,9 @@ function Produits(image,nom,prix,description,) {
     }
 },
   ]
-  
+  // Aparition des fiche produit 1 a 1 a chaque boutton associer 
 
-  function updateRendering(name){
+  function unseulproduit(name){
       
       
       document.getElementById('app').innerHTML = ""
@@ -158,4 +176,153 @@ function Produits(image,nom,prix,description,) {
           
       }
   }
+
+ 
+
+// LOCAL STORAGE SESSION PRODUIT 1 
+
+function selectcolor1(){
+    var couleur="" ; 
+    // avant la boucle la couleur n'est pas choisie 
+    
+    for (var i=0; i<document.monForm.couleur.length; i++){
+        if (document.monForm.couleur[i].checked){
+            couleur=document.monForm.couleur[i].value;
+            break; // case cocher on sort de la boucle 
+        }
+    }
+    
+      
+    
+    if (couleur==""){
+        alert("Veuillez selectionner une couleur");
+    
+    }
+    else {
+        var couleur_json = JSON.stringify(couleur);
+    sessionStorage.setItem("couleur du produit 1",couleur_json);
+    var produit1_json = JSON.stringify(produit1);
+    sessionStorage.setItem("produit1",produit1_json);
+    }
+    
+    
+    }
+
+// LOCAL STORAGE SESSION PRODUIT 2 
+    function selectcolor2(){
+        var couleur="" ; 
+        // avant la boucle la couleur n'est pas choisie 
+        
+        for (var i=0; i<document.monForm.couleur.length; i++){
+            if (document.monForm.couleur[i].checked){
+                couleur=document.monForm.couleur[i].value;
+                break; // case cocher on sort de la boucle 
+            }
+        }
+        
+          
+        
+        if (couleur==""){
+            alert("Veuillez selectionner une couleur");
+        
+        }
+        else {
+            var couleur_json = JSON.stringify(couleur);
+        sessionStorage.setItem("couleur du produit 2",couleur_json);
+        var produit2_json = JSON.stringify(produit2);
+        sessionStorage.setItem("produit2",produit2_json);
+        }
+        
+        
+        }
+
+        // LOCAL STORAGE SESSION PRODUIT 3 
+    function selectcolor3(){
+        var couleur="" ; 
+        // avant la boucle la couleur n'est pas choisie 
+        
+        for (var i=0; i<document.monForm.couleur.length; i++){
+            if (document.monForm.couleur[i].checked){
+                couleur=document.monForm.couleur[i].value;
+                break; // case cocher on sort de la boucle 
+            }
+        }
+        
+          
+        
+        if (couleur==""){
+            alert("Veuillez selectionner une couleur");
+        
+        }
+        else {
+            var couleur_json = JSON.stringify(couleur);
+        sessionStorage.setItem("couleur du produit 3",couleur_json);
+        var produit3_json = JSON.stringify(produit3);
+        sessionStorage.setItem("produit3",produit3_json);
+        }
+        
+        
+        }
+// LOCAL STORAGE SESSION PRODUIT 4 
+function selectcolor4(){
+    var couleur="" ; 
+    // avant la boucle la couleur n'est pas choisie 
+    
+    for (var i=0; i<document.monForm.couleur.length; i++){
+        if (document.monForm.couleur[i].checked){
+            couleur=document.monForm.couleur[i].value;
+            break; // case cocher on sort de la boucle 
+        }
+    }
+    
+      
+    
+    if (couleur==""){
+        alert("Veuillez selectionner une couleur");
+    
+    }
+    else {
+        var couleur_json = JSON.stringify(couleur);
+    sessionStorage.setItem("couleur du produit 4",couleur_json);
+    var produit4_json = JSON.stringify(produit4);
+    sessionStorage.setItem("produit4",produit4_json);
+    }
+    
+    
+    }
+
+    // LOCAL STORAGE SESSION PRODUIT 5
+    function selectcolor5(){
+        var couleur="" ; 
+        // avant la boucle la couleur n'est pas choisie 
+        
+        for (var i=0; i<document.monForm.couleur.length; i++){
+            if (document.monForm.couleur[i].checked){
+                couleur=document.monForm.couleur[i].value;
+                break; // case cocher on sort de la boucle 
+            }
+        }
+        
+          
+        
+        if (couleur==""){
+            alert("Veuillez selectionner une couleur");
+        
+        }
+        else {
+            var couleur_json = JSON.stringify(couleur);
+        sessionStorage.setItem("couleur du produit 5",couleur_json);
+        var produit5_json = JSON.stringify(produit5);
+        sessionStorage.setItem("produit5",produit5_json);
+        }
+        
+        
+        }
+ 
+
+
+
+ 
+ 
+  
   
