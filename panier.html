@@ -2,7 +2,7 @@
 <html lang=fr>
 <head>
 <meta charset="utf-8">
-<script src="panier.js"></script>
+
 <title>Panier</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -23,9 +23,11 @@
             <h3>Panier</h3>
     <table class="table">
         <thead>
-            <tr><th class="tb">Article</th><th class="tb">Prix</th><th class="tb">Quantité</th></tr>
+            <tr><th>Nom du produit:</th><th>Couleur du produit</th><th>Prix du produit</th></tr>
+            <tr><th id="nom"></th><th id="couleur"></th><th id="prix"></th><th id="btnp"></th></tr>
+          <th id="total"></th>
         </thead>
-        <tbody id="paniertest"></tbody>
+        <tbody></tbody>
     </table>
     
     
@@ -58,8 +60,9 @@
               <a href="instragram.com">instagram</a>
           </div>          
         </div>
-    <div id="testo"></div>
+   
 </footer>
 
 </body>
+<script src="form.js"></script>
 </html>
