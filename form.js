@@ -1,112 +1,68 @@
 
-
-
 // RECUPERATION PRODUIT 1 
+// recup  produit 1 avec la couleur choisie
+var prodpanier1_json = sessionStorage.getItem("produit1panier");
+var prodpanier1 = JSON.parse(prodpanier1_json);
 
-
-
-var recupnom1 = sessionStorage.getItem("nom du produit1");{
-  console.log(recupnom1)
-}
-
-
-
-var recupprix1 = sessionStorage.getItem("prix du produit1");
-  
-
-var recupcouleur1 = sessionStorage.getItem("couleur du produit 1");{
-  console.log(recupcouleur1)
-}
-
-// RECUPERATION PRODUIT 2
-
-var recupnom2 = sessionStorage.getItem("nom du produit2");{
-  console.log(recupnom2)
-}
-
-var recupprix2 = sessionStorage.getItem("prix du produit2");{
-  console.log(recupprix2)
-}
-
-var recupcouleur2 = sessionStorage.getItem("couleur du produit 2");{
-  console.log(recupcouleur2)
-}
-
-// RECUPERATION PRODUIT 3 
-
-
-
-var recupnom3 = sessionStorage.getItem("nom du produit3");{
-  console.log(recupnom3)
-}
-
-var recupprix3 = sessionStorage.getItem("prix du produit3");{
-  console.log(recupprix3)
-}
-
-var recupcouleur3 = sessionStorage.getItem("couleur du produit 3");{
-  console.log(recupcouleur3)
-}
-
-// RECUPERATION PRODUIT 4 
-
-
-var recupnom4 = sessionStorage.getItem("nom du produit4");{
-  console.log(recupnom4)
-}
-
-var recupprix4 = sessionStorage.getItem("prix du produit4");{
-  console.log(recupprix4)
-}
-
-var recupcouleur4 = sessionStorage.getItem("couleur du produit 4");{
-  console.log(recupcouleur4)
-}
-
-// RECUPERATION PRODUIT 5
-
-
-
-var recupnom5 = sessionStorage.getItem("nom du produit5");{
-  console.log(recupnom1)
-}
-
-var recupprix5 = sessionStorage.getItem("prix du produit5");{
-  console.log(recupprix5)
-}
-
-var recupcouleur5 = sessionStorage.getItem("couleur du produit 5");{
-  console.log(recupcouleur5)
-}
-
-
-//  TABLEAU NOM DE PRODUIT 
-
- let tbltprodnom = [];
- tbltprodnom.push(recupnom1 , `<br><br>`, recupnom2 ,`<br><br>` , recupnom3 , `<br><br>`, recupnom4 , `<br><br>`  , recupnom5);
-
- document.getElementById("nom").innerHTML= `<br>`+ tbltprodnom ;
+ // afichage dans la page html
+ document.getElementById("panierproduct").innerHTML= prodpanier1  ;  
  
-// TABLEAU PRIX PRODUIT 
+// function pour supprimer le produit
+ function suprime1(){
 
- let tbltprodprix = [];
- tbltprodprix.push(recupprix1 ,`<br><br>`, recupprix2 , `<br><br>` , recupprix3 , `<br><br>`, recupprix4 ,`<br><br>`, recupprix5);
+ }
+ // RECUPERATION PRODUIT 2
+// recup produit 2 avec couleur choisie
+var prodpanier2_json = sessionStorage.getItem("produit2panier");
+var prodpanier2 = JSON.parse(prodpanier2_json);
 
- document.getElementById("prix").innerHTML = `<br>` + tbltprodprix ; 
+ // afichage dans la page html
+ document.getElementById("panierproduct2").innerHTML= prodpanier2 ;  
+ 
+ 
+// function pour supprimer le produit
+ function suprime2(){
+ 
+ }
 
-// TABLEAU COULEUR PRODUIT 
+// RECUPERATION PRODUIT 3
+// recup produit 3 
 
- let tbltprodcouleur = [] ;
- tbltprodcouleur.push(recupcouleur1 ,`<br><br>`, recupcouleur2 , `<br><br>` , recupcouleur3 , `<br><br>`, recupcouleur4 ,`<br><br>`, recupcouleur5);
+var prodpanier3_json = sessionStorage.getItem("produit3panier");
+var prodpanier3 = JSON.parse(prodpanier3_json);
+// recup couleur prod 3 
 
- document.getElementById("couleur").innerHTML = `<br>` + tbltprodcouleur ; 
+ // afichage dans la page html
+ document.getElementById("panierproduct3").innerHTML= prodpanier3 ;  
+ 
+ 
+// function pour supprimer le produit
+ function suprime3(){
 
- document.getElementById("btnp").innerHTML = btn1 ; 
-      
-  
+ }
+ // RECUPERATION PRODUIT 4
+// recup produit 4 avec couleur choisie
+var prodpanier4_json = sessionStorage.getItem("produit4panier");
+var prodpanier4 = JSON.parse(prodpanier4_json);
 
-// suprimer 
+ // afichage dans la page html
+ document.getElementById("panierproduct4").innerHTML= prodpanier4 ;  
+ 
+ 
+// function pour supprimer le produit
+ function suprime4(){
+     
+ }
+ // RECUPERATION PRODUIT 3
+// recup produit 3 avec couleur choisie
+var prodpanier5_json = sessionStorage.getItem("produit5panier");
+var prodpanier5 = JSON.parse(prodpanier5_json);
 
-
-
-
+ // afichage dans la page html
+ document.getElementById("panierproduct5").innerHTML= prodpanier5 ;  
+ 
+ 
+// function pour supprimer le produit
+ function suprime5(){
+     
+ }

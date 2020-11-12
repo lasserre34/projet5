@@ -1,221 +1,212 @@
 
-// nom produit
-var prodduit1nom = sessionStorage.getItem("nom product1");
-var prodduit2nom = sessionStorage.getItem("nom product2");
-var prodduit3nom = sessionStorage.getItem('nom product3');
-var prodduit4nom = sessionStorage.getItem('nom product4');
-var prodduit5nom = sessionStorage.getItem('nom product5');
-let nomp = [] ;
-nomp.push(prodduit1nom , prodduit2nom , prodduit3nom , prodduit4nom , prodduit5nom );
-// image 
-
-
-var prodduit1image = sessionStorage.getItem("image product1");
-var prodduit2image = sessionStorage.getItem("image product2");
-var prodduit3image = sessionStorage.getItem("image product3");
-var prodduit4image = sessionStorage.getItem("image product4");
-var prodduit5image = sessionStorage.getItem("image product5");
-
-let image1 = [];
-
-image1.push(prodduit1image , prodduit2image , prodduit3image , prodduit4image , prodduit5image  ) ;
-
-
-// PRIX 
-
-var prodduit1prix = sessionStorage.getItem("prix product1");
-var prodduit2prix = sessionStorage.getItem("prix product2");
-var prodduit3prix = sessionStorage.getItem("prix product3");
-var prodduit4prix = sessionStorage.getItem("prix product4");
-var prodduit5prix = sessionStorage.getItem("prix product5");
-
-let prix1 = [] ; 
-prix1.push(prodduit1prix , prodduit2prix ,prodduit3prix , prodduit4prix , prodduit5prix  );
-
-// DESCRIPTION 
-
-var prodduit1des = sessionStorage.getItem("description product1");
-var prodduit2des = sessionStorage.getItem("description product2");
-var prodduit3des = sessionStorage.getItem("description product3");
-var prodduit4des = sessionStorage.getItem("description product4");
-var prodduit5des = sessionStorage.getItem("description product5");
-let des1 = []; 
-des1.push(prodduit1des , prodduit2des ,  prodduit3des ,prodduit4des , prodduit5des  );
-
+// SESSION STORAGE RECUP JSON PROD 1 FICHEPRODUIT.HTML
 
         var pol_json = sessionStorage.getItem("produtii");
       var pol = JSON.parse(pol_json);
-      document.getElementById("coq").innerHTML= pol ; 
+      document.getElementById("produitt1").innerHTML= pol ; 
+
+// SESSION STORAGE RECUP JSON PROD 2 FICHEPRODUIT.HTML
 
       var pol2_json = sessionStorage.getItem("produtii2");
       var pol2 = JSON.parse(pol2_json);
-      document.getElementById("poule").innerHTML= pol2 ; 
-      
-// LOCAL STORAGE SESSION PRODUIT 1 
+      document.getElementById("produitt2").innerHTML= pol2 ; 
+
+// SESSION STORAGE RECUP JSON PROD 3 FICHEPRODUIT.HTML 
+
+      var pol3_json = sessionStorage.getItem("produtii3");
+      var pol3 = JSON.parse(pol3_json);
+      document.getElementById("produitt3").innerHTML= pol3 ; 
+
+// SESSION STORAGE RECUP JSON PROD 4 FICHEPRODUIT.HTML
+
+var pol4_json = sessionStorage.getItem("produtii4");
+var pol4 = JSON.parse(pol4_json);
+document.getElementById("produitt4").innerHTML= pol4 ; 
+
+// SESSION STORAGE RECUP JSON PROD 5 FICHEPRODUIT.HTML
+
+var pol5_json = sessionStorage.getItem("produtii5");
+var pol5 = JSON.parse(pol5_json);
+document.getElementById("produitt5").innerHTML= pol5 ; 
+
+// tableau produit 
+// Fonction Produit me permettant de ne pas ecricre name: et prix: dans les objects //
+function Produitspanier(name,price,) {
+   
+  this.name = name ; 
+  this.price = price ;
+  
+
+       
+}
+// Tableau des Noms et du Prix des produits //
+const  produit1p = new Produitspanier("Ours en laine" ,30 );
+const  produit2p = new Produitspanier(  "Ours en poil de lapin" , 55);
+const  produit3p = new Produitspanier( "Ours en chanvre", 45);
+const  produit4p = new Produitspanier( "Ours en soie" , 85);
+const  produit5p =  new Produitspanier( "Ours en peluche" , 25  );
+let produitsp = [];
+produitsp.push(produit1p,produit2p,produit3p,produit4p,produit5p);
+  
+// LOCAL STORAGE SESSION PRODUIT 1 PANIER.HTML 
+
+
+
+
 
 function selectcolor1(){
-  var couleur="" ; 
+  var couleur1="" ; 
   // avant la boucle la couleur n'est pas choisie 
   
-  for (var i=0; i<document.monForm.couleur.length; i++){
-      if (document.monForm.couleur[i].checked){
-          couleur=document.monForm.couleur[i].value;
+  for (var i=0; i<document.monForm.couleur1.length; i++){
+      if (document.monForm.couleur1[i].checked){
+          couleur1=document.monForm.couleur1[i].value;
           break; // case cocher on sort de la boucle 
       }
   }
   
-    
-  
-  if (couleur==""){
+  if (couleur1==""){
     alert("selectionner une couleur")
-      
-
-      
+          
     }
-
-    if (couleur==""){
-      document.location.href="ficheproduit.html"
-    }
- 
 
   else {
   
-      var couleur1 = (couleur);
-  sessionStorage.setItem("couleur du produit 1",couleur1);
-  var nom1_json = JSON.stringify(`${produit1.nom}`);
-  sessionStorage.setItem("nom du produit1",nom1_json);
-  var prix1_json = JSON.stringify(30);
-  sessionStorage.setItem("prix du produit1", prix1_json);
+  var couleur1_json = JSON.stringify(couleur1);
+  sessionStorage.setItem("produit1paniercouleur",couleur1_json);
+  // RECUP COULEUR CHOISIE PRODUIT 1 
   
-  
+  var prodpanier1_json = JSON.stringify(`<table class="table">
+  <thead>
+   <tr><th>Nom: ${produit1p.name}</th><th>Couleur: ${couleur1}</th><th>Prix: ${produit1p.price}</th><th><input type="submit" onclick="suprime1()" value="supprimer du panier"/></th></tr>
+  </thead>
+ <tbody></tbody>
+</table>`);
+  sessionStorage.setItem("produit1panier",prodpanier1_json);
  
-}
-  
-  
+    }
   }
-
+  
 // LOCAL STORAGE SESSION PRODUIT 2 
   function selectcolor2(){
-      var couleur="" ; 
+      var couleur2="" ; 
       // avant la boucle la couleur n'est pas choisie 
       
-      for (var i=0; i<document.monForm.couleur.length; i++){
-          if (document.monForm.couleur[i].checked){
-              couleur=document.monForm.couleur[i].value;
+      for (var i=0; i<document.monForm.couleur2.length; i++){
+          if (document.monForm.couleur2[i].checked){
+              couleur2=document.monForm.couleur2[i].value;
               break; // case cocher on sort de la boucle 
           }
-      }
+   }
       
-        
-      
-      if (couleur==""){
+      if (couleur2==""){
           alert("Veuillez selectionner une couleur");
-      
-      }
+   }
       else {
-          var couleur_json = JSON.stringify(couleur);
-      sessionStorage.setItem("couleur du produit 2",couleur_json);
-      var nom2_json = JSON.stringify(`${produit2.nom}`);
-      sessionStorage.setItem("nom du produit2",nom2_json);
-      var prix2_json = JSON.stringify(55);
-      sessionStorage.setItem("prix du produit2", prix2_json)
+       
+        var couleur2_json = JSON.stringify(couleur2);
+        sessionStorage.setItem("produit2paniercouleur",couleur2_json);
+
+        var prodpanier2_json = JSON.stringify(`<table class="table">
+        <thead>
+         <tr><th>Nom: ${produit2p.name}</th><th>Couleur: ${couleur2}</th><th>Prix: ${produit2p.price}</th><th><input type="submit" onclick="suprime2()" value="supprimer du panier"/></th></tr>
+        </thead>
+       <tbody></tbody>
+      </table> `);
+        sessionStorage.setItem("produit2panier",prodpanier2_json);
+        
       }
-      
-      
-      }
+  }    
 
       // LOCAL STORAGE SESSION PRODUIT 3 
   function selectcolor3(){
-      var couleur="" ; 
+      var couleur3="" ; 
       // avant la boucle la couleur n'est pas choisie 
       
-      for (var i=0; i<document.monForm.couleur.length; i++){
-          if (document.monForm.couleur[i].checked){
-              couleur=document.monForm.couleur[i].value;
+      for (var i=0; i<document.monForm.couleur3.length; i++){
+          if (document.monForm.couleur3[i].checked){
+              couleur3=document.monForm.couleur3[i].value;
               break; // case cocher on sort de la boucle 
           }
-      }
-      
-        
-      
-      if (couleur==""){
+   }
+       
+      if (couleur3==""){
           alert("Veuillez selectionner une couleur");
       
-      }
+   }
       else {
-          var couleur_json = JSON.stringify(couleur);
-      sessionStorage.setItem("couleur du produit 3",couleur_json);
-      var nom3_json = JSON.stringify(`${produit3.nom}`);
-      sessionStorage.setItem("nom du produit3",nom3_json);
-      var prix3_json = JSON.stringify(45);
-      sessionStorage.setItem("prix du produit3", prix3_json)
-
+          var couleur3_json = JSON.stringify(couleur3);
+      sessionStorage.setItem("produit3paniercouleur",couleur3_json);
+      var prodpanier3_json = JSON.stringify(`<table class="table">
+      <thead>
+       <tr><th>Nom: ${produit3p.name}</th><th>Couleur: ${couleur3}</th><th>Prix: ${produit3p.price}</th><th><input type="submit" onclick="suprime3()" value="supprimer du panier"/></th></tr>
+      </thead>
+     <tbody></tbody> 
+    </table> `);
+      sessionStorage.setItem("produit3panier",prodpanier3_json);
+   
       }
-      
-      
-      }
-// LOCAL STORAGE SESSION PRODUIT 4 
-function selectcolor4(){
+   }
+  
+  // LOCAL STORAGE SESSION PRODUIT 4 
+  function selectcolor4(){
 
-  var couleur="" ; 
+  var couleur4="" ; 
   // avant la boucle la couleur n'est pas choisie 
   
-  for (var i=0; i<document.monForm.couleur.length; i++){
-      if (document.monForm.couleur[i].checked){
-          couleur=document.monForm.couleur[i].value;
+  for (var i=0; i<document.monForm.couleur4.length; i++){
+      if (document.monForm.couleur4[i].checked){
+          couleur4=document.monForm.couleur4[i].value;
           break; // case cocher on sort de la boucle 
       }
-  }
+ }
   
-    
-  
-  if (couleur==""){
+  if (couleur4==""){
       alert("Veuillez selectionner une couleur");
   
-  }
+ }
   else {
-      var couleur_json = JSON.stringify(couleur);
-  sessionStorage.setItem("couleur du produit 4",couleur_json);
-  var nom4_json = JSON.stringify(`${produit4.nom}`);
-      sessionStorage.setItem("nom du produit4",nom4_json);
-      var prix4_json = JSON.stringify(85);
-      sessionStorage.setItem( "prix du produit4", prix4_json)
-  }
+      var couleur4_json = JSON.stringify(couleur4);
+  sessionStorage.setItem("produit4paniercouleur",couleur4_json);
+  var prodpanier4_json = JSON.stringify( `
+  <table class="table">
+    <thead>
+     <tr><th>Nom: ${produit4p.name}</th><th>Couleur: ${couleur4}</th><th>Prix: ${produit4p.price}</th><th><input type="submit" onclick="suprime4()" value="supprimer du panier"/></th></tr>
+    </thead>
+   <tbody></tbody>
+  </table>  `);
+      sessionStorage.setItem("produit4panier",prodpanier4_json);
+     
+    }
   
-  
   }
-
- 
-
   // LOCAL STORAGE SESSION PRODUIT 5
   function selectcolor5(){
-      var couleur="" ; 
+      var couleur5="" ; 
       // avant la boucle la couleur n'est pas choisie 
       
-      for (var i=0; i<document.monForm.couleur.length; i++){
-          if (document.monForm.couleur[i].checked){
-              couleur=document.monForm.couleur[i].value;
+      for (var i=0; i<document.monForm.couleur5.length; i++){
+          if (document.monForm.couleur5[i].checked){
+              couleur5=document.monForm.couleur5[i].value;
               break; // case cocher on sort de la boucle 
           }
       }
-      
-        
-      
-      if (couleur==""){
+       if (couleur5==""){
           alert("Veuillez selectionner une couleur");
       
       }
       else {
-          var couleur_json = JSON.stringify(couleur);
-      sessionStorage.setItem("couleur du produit 5",couleur_json);
-      var nom5_json = JSON.stringify(`${produit5.nom}`);
-      sessionStorage.setItem("nom du produit5",nom5_json);
-      var prix5_json = JSON.stringify(25);
-      sessionStorage.setItem( "prix du produit5" , prix5_json)
+          var couleur5_json = JSON.stringify(couleur5);
+      sessionStorage.setItem("produit5paniercouleur",couleur5_json);
+      var prodpanier5_json = JSON.stringify( `
+      <table class="table">
+        <thead>
+         <tr><th>Nom: ${produit5p.name}</th><th>Couleur: ${couleur5}</th><th>Prix: ${produit5p.price}</th><th><input type="submit" onclick="suprime5()" value="supprimer du panier"/></th></tr>
+        </thead>
+       <tbody></tbody>
+      </table>  `);
+      sessionStorage.setItem("produit5panier",prodpanier5_json);
+      
       }
-      
-      
-      }
-
-      
-     
+   }
+   
