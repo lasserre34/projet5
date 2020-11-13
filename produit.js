@@ -83,11 +83,13 @@ function selectcolor1(){
  <tbody></tbody>
 </table>`);
   sessionStorage.setItem("produit1panier",prodpanier1_json);
- 
+ // VAR PRIX PRODUIT 2
+ var price1_json = JSON.stringify(30);
+ sessionStorage.setItem("prix1", price1_json); 
     }
   }
   
-// LOCAL STORAGE SESSION PRODUIT 2 
+// LOCAL STORAGE SESSION PRODUIT 2  
   function selectcolor2(){
       var couleur2="" ; 
       // avant la boucle la couleur n'est pas choisie 
@@ -114,7 +116,9 @@ function selectcolor1(){
        <tbody></tbody>
       </table> `);
         sessionStorage.setItem("produit2panier",prodpanier2_json);
-        
+        // VAR PRIX PRODUIT 2
+        var price2_json = JSON.stringify(55);
+        sessionStorage.setItem("prix2", price2_json); 
       }
   }    
 
@@ -144,7 +148,9 @@ function selectcolor1(){
      <tbody></tbody> 
     </table> `);
       sessionStorage.setItem("produit3panier",prodpanier3_json);
-   
+      // VAR PRIX PRODUIT 3 
+      var price3_json = JSON.stringify(45);
+      sessionStorage.setItem("prix3", price3_json); 
       }
    }
   
@@ -176,6 +182,9 @@ function selectcolor1(){
    <tbody></tbody>
   </table>  `);
       sessionStorage.setItem("produit4panier",prodpanier4_json);
+      // VAR PRIx  PRODUIT 4 
+      var price4_json = JSON.stringify(85);
+      sessionStorage.setItem("prix4", price4_json); 
      
     }
   
@@ -194,7 +203,7 @@ function selectcolor1(){
        if (couleur5==""){
           alert("Veuillez selectionner une couleur");
       
-      }
+      } 
       else {
           var couleur5_json = JSON.stringify(couleur5);
       sessionStorage.setItem("produit5paniercouleur",couleur5_json);
@@ -206,7 +215,9 @@ function selectcolor1(){
        <tbody></tbody>
       </table>  `);
       sessionStorage.setItem("produit5panier",prodpanier5_json);
-      
+      // VAR PRIX PRODUIT 5
+      var price5_json = JSON.stringify(25);
+      sessionStorage.setItem("prix5", price5_json); 
       }
    }
    
