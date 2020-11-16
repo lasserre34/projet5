@@ -85,7 +85,9 @@ function selectcolor1(){
   sessionStorage.setItem("produit1panier",prodpanier1_json);
  // VAR PRIX PRODUIT 2
  var price1_json = JSON.stringify(30);
- sessionStorage.setItem("prix1", price1_json); 
+ sessionStorage.setItem("prix1", price1_json);
+ var price11_json = JSON.stringify(-30);
+ sessionStorage.setItem("prix11",price11_json);
     }
   }
   
@@ -118,7 +120,9 @@ function selectcolor1(){
         sessionStorage.setItem("produit2panier",prodpanier2_json);
         // VAR PRIX PRODUIT 2
         var price2_json = JSON.stringify(55);
-        sessionStorage.setItem("prix2", price2_json); 
+        sessionStorage.setItem("prix2", price2_json);
+        var price22_json = JSON.stringify(55);
+        sessionStorage.setItem("prix22",price22_json);
       }
   }    
 
@@ -150,7 +154,9 @@ function selectcolor1(){
       sessionStorage.setItem("produit3panier",prodpanier3_json);
       // VAR PRIX PRODUIT 3 
       var price3_json = JSON.stringify(45);
-      sessionStorage.setItem("prix3", price3_json); 
+      sessionStorage.setItem("prix3", price3_json);
+      var price33_json = JSON.stringify(45);
+      sessionStorage.setItem("prix33",price33_json);
       }
    }
   
@@ -184,7 +190,9 @@ function selectcolor1(){
       sessionStorage.setItem("produit4panier",prodpanier4_json);
       // VAR PRIx  PRODUIT 4 
       var price4_json = JSON.stringify(85);
-      sessionStorage.setItem("prix4", price4_json); 
+      sessionStorage.setItem("prix4", price4_json);
+      var price44_json = JSON.stringify(85);
+      sessionStorage.setItem("prix44",price44_json);
      
     }
   
@@ -218,6 +226,8 @@ function selectcolor1(){
       // VAR PRIX PRODUIT 5
       var price5_json = JSON.stringify(25);
       sessionStorage.setItem("prix5", price5_json); 
+      var price55_json = JSON.stringify(25);
+      sessionStorage.setItem("prix55",price55_json);
       }
    }
    

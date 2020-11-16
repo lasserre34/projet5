@@ -27,10 +27,7 @@ var prodpanier3 = JSON.parse(prodpanier3_json);
  document.getElementById("panierproduct3").innerHTML= prodpanier3 ;  
  
  
-// function pour supprimer le produit
- function suprime3(){
 
- }
  // RECUPERATION PRODUIT 4
 // recup produit 4 avec couleur choisie
 var prodpanier4_json = sessionStorage.getItem("produit4panier");
@@ -40,10 +37,7 @@ var prodpanier4 = JSON.parse(prodpanier4_json);
  document.getElementById("panierproduct4").innerHTML= prodpanier4 ;  
  
  
-// function pour supprimer le produit
- function suprime4(){
-     
- }
+
  // RECUPERATION PRODUIT 5
 // recup produit 5 avec couleur choisie
 var prodpanier5_json = sessionStorage.getItem("produit5panier");
@@ -53,10 +47,7 @@ var prodpanier5 = JSON.parse(prodpanier5_json);
  document.getElementById("panierproduct5").innerHTML= prodpanier5 ;  
  
  
-// function pour supprimer le produit
- function suprime5(){
-     
- }
+
 // var pour total prix panier 
  var price5_json = sessionStorage.getItem("prix5");
  var price5 = JSON.parse(price5_json);
@@ -71,29 +62,38 @@ var prodpanier5 = JSON.parse(prodpanier5_json);
  
  var result = price5 + price4 + price3 + price2 + price1 ;
  
- document.getElementById('total').innerHTML= "Total panier " + result + " euro"; 
+ document.getElementById('total').innerHTML=  result ; 
 
 
+ 
+ 
 // FUNCTION POUR SUPPRESSION DU PRODUIT1 DU PANIER 
  function suprime1(){ 
     var  supprime = sessionStorage.removeItem("produit1panier");
    var supprime = " ";
-   var testpr = sessionStorage.removeItem("prix1");
-var testpr = " "
-  
+    sessionStorage.removeItem("prix1");
+   var pprix1 = 30 ; 
+   var recupprix1 =  document.getElementById("total").innerHTML;
+
+   var recp1 = recupprix1 - pprix1 ; 
    
    document.getElementById("panierproduct").innerHTML= supprime ;
-   document.getElementById("total").innerHTML = "Total panier "+ testpr + " euro";
+   document.getElementById("total").innerHTML=  recp1 ; 
+  
  }
  // FUNCTION POUR SUPPRESSION DU PRODUIT2 DU PANIER 
  function suprime2(){
     var  supprime2 = sessionStorage.removeItem("produit2panier");
     var supprime2 = " ";
-    var testpr2 = sessionStorage.removeItem("prix2");
+     sessionStorage.removeItem("prix2");
+    var pprix2 = 55 ; 
+    var recupprix2 = document.getElementById("total").innerHTML; 
     
-    
+    var recp2 = recupprix2 - pprix2 ; 
+   
     document.getElementById("panierproduct2").innerHTML= supprime2 ;
-    document.getElementById("total").innerHTML = "Total panier " + testpr2 + " euro";
+    document.getElementById("total").innerHTML= recp2 ;
+   
  
 }
 // FUNCTION POUR SUPPRESSION DU PRODUIT3 DU PANIER 
@@ -101,20 +101,27 @@ function suprime3(){
     var  supprime3 = sessionStorage.removeItem("produit3panier");
     var supprime3 = " ";
      sessionStorage.removeItem("prix3");
-    
+    var pprix3 = 45 ;
+    var recupprix3 = document.getElementById("total").innerHTML;
+
+    var recp3 = recupprix3 - pprix3 ; 
+
     document.getElementById("panierproduct3").innerHTML= supprime3 ;
-    document.getElementById("total").innerHTML = "Total panier "  + result3 + " euro";
+    document.getElementById("total").innerHTML = recp3 ; 
  
 }
 // FUNCTION POUR SUPPRESSION DU PRODUIT4 DU PANIER 
 function suprime4(){
     var  supprime4 = sessionStorage.removeItem("produit4panier");
     var supprime4 = " ";
-  sessionStorage.removeItem("prix4");
-    
+    sessionStorage.removeItem("prix4");
+     var pprix4 = 85 ;
+     var recupprix4 = document.getElementById("total").innerHTML;
+
+     var recp4 = recupprix4 - pprix4 ; 
     
     document.getElementById("panierproduct4").innerHTML= supprime4 ;
-    document.getElementById("total").innerHTML = "Total panier "  + result4 + " euro";
+    document.getElementById("total").innerHTML = recp4 ;
  
 }
 // FUNCTION POUR SUPPRESSION DU PRODUIT5 DU PANIER 
@@ -122,11 +129,16 @@ function suprime5(){
     var  supprime5 = sessionStorage.removeItem("produit5panier");
     var supprime5 = " ";
      sessionStorage.removeItem("prix5");
-  
+     var pprix5 = 25 ;
+     var recupprix5 = document.getElementById("total").innerHTML;
+
+     var recp5 = recupprix5 - pprix5 ; 
     document.getElementById("panierproduct5").innerHTML= supprime5 ;
-    document.getElementById("total").innerHTML = "Total panier "  + result5 + " euro";
+    document.getElementById("total").innerHTML = recp5 ; 
  
-}
+} 
+
+
 
  
 
@@ -147,10 +159,12 @@ function recupconfirm(){
  sessionStorage.setItem("adresse",recupadresse_json);
  var recupemail_json = JSON.stringify(emailf);
  sessionStorage.setItem("email",recupemail_json);
-var recuptotal_json = JSON.stringify(result);
-sessionStorage.setItem("total",recuptotal_json);
-
-
+var recuptotalprix = document.getElementById("total").innerHTML ; 
+ var recuptotalprix_json  = JSON.stringify(recuptotalprix);
+ sessionStorage.setItem("recuptotalprix",recuptotalprix_json); 
+ var recuparticle = document.getElementById('panierconteneur').innerHTML;
+ var recuparticle_json = JSON.stringify(recuparticle);
+ sessionStorage.setItem("conteneurpanier",recuparticle_json);
 }
 
 
