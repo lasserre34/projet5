@@ -70,7 +70,7 @@ p{
 
 li{
     text-align:center;
-    padding-bottom:5%;
+    padding-bottom:2%;
     list-style:none;
 }
 
@@ -85,4 +85,13 @@ li{
 
 .tb{
     width:30%;
+
+}
+
+table{
+    width:100%;
+}
+
+.textcenter{
+    text-align: center;
 }
