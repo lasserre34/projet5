@@ -1,6 +1,52 @@
 
+// Creation div pour produit  panier
+var divpanier = document.createElement("div");
+divpanier.setAttribute("id","divpanier");
+document.body.appendChild(divpanier);
 
- // CREATION CONTENEUR DIV PAGE PANIER 
+var idarticlepanier = localStorage.getItem("selectedidpanier");
+ console.log(idarticlepanier);
+var prix = localStorage.getItem("prix");
+
+var article  
+
+var request = new XMLHttpRequest();
+request.onreadystatechange = function() {
+    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        article = response ;
+
+        var articleteddy = ` <thead>
+        <tr>
+        <th><img src=${article.imageUrl}></th>
+        <th>Nom : ${article.name} </th><th> Prix: ${article.price} </th>
+        <th><input  id="produitinput" type="hidden" name="${article.name}"  value="ours${article._id}">
+        <input type="submit" onclick="selectprod( '${article._id}')" value="Supprimer"></th></tr>
+        </thead>
+        <tbody></tbody>
+        </table></form>`
+        
+        document.getElementById("divpanier").innerHTML= articleteddy ; 
+        
+        
+    
+    }
+};
+
+request.open("GET", "http://localhost:3000/api/teddies/" + idarticlepanier);
+request.send();
+
+
+
+
+
+
+
+
+
+
+
+ /*// CREATION CONTENEUR DIV PAGE PANIER 
  var cntdiv=document.createElement("div");
  cntdiv.setAttribute("id","cntdiv")
  document.body.appendChild(cntdiv); 
@@ -20,10 +66,7 @@ divpanier4.setAttribute("id","divpanier4");
 
 var divpanier5 = document.createElement("div");
 divpanier5.setAttribute("id","divpanier5");
-// Creation div pour total commande: 
- var totalp = document.createElement("div");
- totalp.setAttribute("id","total"); 
- document.body.appendChild(totalp);  
+
 
 // RECUPERATION PRODUIT 1 
 // recup  produit 1 avec la couleur choisie
@@ -89,11 +132,16 @@ document.body.appendChild(divpanier5);
  var price2 = JSON.parse(price2_json);
  var price1_json = sessionStorage.getItem("prix1");
  var price1 = JSON.parse(price1_json);
- 
- var result = price5 + price4 + price3 + price2 + price1 ;
+ */// Creation div pour total commande: 
+ var totalp = document.createElement("div");
+ totalp.setAttribute("id","total"); 
+ document.body.appendChild(totalp);  
+ var result = prix 
   document.getElementById("total").innerHTML= result ; 
- 
+
+ console.log(prix);
 // VAR POUR TOTAL SOUSTRACTION
+/*
 var price11_json = sessionStorage.getItem("prix11");
 var price11 = JSON.parse(price11_json);
 var price22_json = sessionStorage.getItem("prix22");
@@ -105,52 +153,11 @@ var price44 = JSON.parse(price44_json)
 var price55_json = sessionStorage.getItem("prix55");
 var price55 = JSON.parse(price55_json)
 
-// Variable pour fonction de validation formulaire
-var formValid = document.getElementById("btn");
-var nomclient = document.getElementById("nomclient");
-var missnom = document.getElementById("missnom");
-var prenomclient = document.getElementById("prenomclient");
-var missprenom = document.getElementById("missprenom");
-var ageclient = document.getElementById("ageclient");
-var missage = document.getElementById("missage");
-var adresseclient = document.getElementById("adresseclient");
-var missadresse = document.getElementById("missadresse");
-var emailclient = document.getElementById("emailclient");
-var missemail = document.getElementById("missemail");
 
-formValid.addEventListener('click', validation );
 
-// FUNCTION VALIDATION FORMULAIRE
- function validation(event){
-     // SI le champs est vide 
-     if(nomclient.validity.valueMissing){
-         event.preventDefault();
-         missnom.textContent = "Nom manquant";
-         missnom.style.color = "red";
-         if(prenomclient.validity.valueMissing){
-            event.preventDefault();
-            missprenom.textContent = "Prenom manquant";
-            missprenom.style.color = "red";
-            if(ageclient.validity.valueMissing){
-                event.preventDefault();
-                missage.textContent = "Age manquant";
-                missage.style.color = "red";
-                if(adresseclient.validity.valueMissing){
-                    event.preventDefault();
-                    missadresse.textContent = "Adresse manquant";
-                    missadresse.style.color = "red";
-                    if(emailclient.validity.valueMissing){
-                        event.preventDefault();
-                        missemail.textContent = "Email manquant";
-                        missemail.style.color = "red";
-                    }
-                }
-            } 
-        }
-   } 
-}
 
  
+ /*
 // FUNCTION POUR SUPPRESSION DU PRODUIT1 DU PANIER 
  function suprime1(){ 
     var  supprime = sessionStorage.removeItem("produit1panier");
@@ -217,29 +224,121 @@ function suprime5(){
      document.getElementById("total").innerHTML= recp5 ;
  
 } 
-var contact={
- nom:  document.getElementById("nomclient").value ,
-prenom:  document.getElementById('prenomclient').value ,
- adresse: document.getElementById("adresseclient").value , 
- email: document.getElementById("emailclient").value ,
-} 
+*/
+let products = ["5beaabe91c9d440000a57d96"] ;
+let resulto = document.getElementById("resulto");
+let submit = form[5] ;
+
+
+// Variable pour fonction de validation formulaire
+var formValid = document.getElementById("btn");
+var nomclient = document.getElementById("nomclient");
+var missnom = document.getElementById("missnom");
+var prenomclient = document.getElementById("prenomclient");
+var missprenom = document.getElementById("missprenom");
+var villeclient = document.getElementById("villeclient");
+var missville = document.getElementById("missville");
+var adresseclient = document.getElementById("adresseclient");
+var missadresse = document.getElementById("missadresse");
+var emailclient = document.getElementById("emailclient");
+var missemail = document.getElementById("missemail");
+
+formValid.addEventListener('click', validation );
+
+
+// FUNCTION VALIDATION FORMULAIRE
+function validation(event){
+    // SI le champs est vide 
+    if(nomclient.validity.valueMissing){
+        event.preventDefault();
+        missnom.textContent = "Nom manquant";
+        missnom.style.color = "red";
+        if(prenomclient.validity.valueMissing){
+           event.preventDefault();
+           missprenom.textContent = "Prenom manquant";
+           missprenom.style.color = "red";
+           if(villeclient.validity.valueMissing){
+               event.preventDefault();
+               missville.textContent = "ville manquant";
+               missville.style.color = "red";
+               if(adresseclient.validity.valueMissing){
+                   event.preventDefault();
+                   missadresse.textContent = "Adresse manquant";
+                   missadresse.style.color = "red";
+                   if(emailclient.validity.valueMissing){
+                       event.preventDefault();
+                       missemail.textContent = "Email manquant";
+                       missemail.style.color = "red";
+                   }
+                } 
+            } 
+        } 
+    }
+    
+
+
+else { envoipost()
+}
+}
 
 function envoipost(){
-    
-    var recupproduct = document.getElementById("total").innerHTML; 
+
+  var recupproduct = document.getElementById("total").innerHTML; 
     console.log(recupproduct);
     if( recupproduct === "0"){
-        alert("votre panier est vide , vous ne pouvez passer commande")
-    }
-else{ 
+      alert("votre panier est vide , vous ne pouvez passer commande")}
+    
+else{
+  
+    var request = new XMLHttpRequest();
+        
+   /* request.onload = function () {
+      if (request.readyState === request.DONE && request.status === 200) {
+        var responso = JSON.parse(request.responseText);
+     resulto.innerHTML = responso.postData.text;
+      }
+    };
+   */
+    request.open('POST', 'http://localhost:3000/api/teddies/order' , true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+   /* var contact ={
+    firstName:  document.getElementById("nomclient").value ,
+   lastName:  document.getElementById('prenomclient').value ,
+    adress: document.getElementById("adresseclient").value ,
+    city: document.getElementById("villeclient").value ,  
+    email: document.getElementById("emailclient").value 
+   
+}
+*/
+
+var contact ={
+    firstName:  "abc",
+   lastName:  "abc ",
+    adress: "abc",
+    city:  "abc",
+    email: "abc" 
+   
+}
+var data ={
+    contact: contact , 
+    products : products 
+}
+
+console.log(JSON.stringify(data));
+
+    request.send(JSON.stringify(data));
+   
+    
+}
+    
+}
 
     
-       var request = new XMLHttpRequest();
-      request.open("POST", "http://localhost:3000/api/teddies/order");
-      request.setRequestHeader("Content-Type", "application/json");
-      request.send(JSON.stringify(contact));
-      }
-}
+
+    
+    
 
 
 
@@ -265,7 +364,3 @@ var recuptotalprix = document.getElementById("total").innerHTML ;
 }
 
 */
-
-
-
-

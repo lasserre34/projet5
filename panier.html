@@ -7,61 +7,33 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <header> 
-      
-        <div class="element1">
-              <div class="lien">
-                <a href="panier.html"><i class="fas fa-shopping-cart"></i></a>
-                  <a href="index.html">Produits</a>
-               </div>
-            </div>
-               
-               
-                   <h1>Ornitedy - Ours en peluche fait main</h1>
-               
-            </header>
-            <h3>Panier</h3>
-   <div id="panierconteneur">        
-   <div id="panierproduct"></div>
-   <div id="panierproduct2"></div>
-   <div id="panierproduct3"></div> 
-   <div id="panierproduct4"></div>
-   <div id="panierproduct5"></div>
-</div>
-
-    
-   <div id="total"></div>
-
-   
-   
+  
+  
      <h2>Formulaire de Commande</h2>
-     <form class="form"   id="form1" name="formdecomande" action="confirmation.html" >   
-    <ul>
-       <li class="élement1">Nom:<input  class="élement1"type="texte" name="nomclient" autocomplete="off" spellcheck="false" placeholder="nom" id="nomf" minlength="2" required></li>
-       <li class="élement1" >Prenom:<input  class="élement1" type="texte" name="prenomclient" autocomplete="off" spellcheck="false" placeholder="prenom" id="prenomf" minlength="2" required></li>
-       <li class="élement1" >Age:<input class="élement1" type="number" name="ageclient"   placeholder="age" id="agef" required ></li>
-       <li class="élement2" >Adresse:<input class="élement2" type="texte" name="adresseclient" placeholder="adresse" id="adressef" required></li>
-       <li class="élement1"> Email:<input  class="élement1"type="email" name="emailclient" placeholder="email" id="emailf" required></li>
-        <input class="élement3" type="submit" onclick="recupconfirm()" value="valider commande" required>
-        </ul>
+     <form id="form" name="formdecomande"   >   
+       <label for="nomclient">Nom:</label>
+       <input id="nomclient" type="texte" name="nomclient"  placeholder="nom"  required><br>
+       <span id="missnom"></span><br>
+       <label for="prenomclient">Prenom:</label>
+       <input  id="prenomclient"  type="texte" name="prenomclient" placeholder="prenom"  minlength="2" required><br>
+       <span id="missprenom"></span><br>
+       <label for="villeclient">Ville</label>
+        <input id="villeclient" type="texte" name="villeclient"   placeholder="ville"  required ><br>
+        <span id="missville"></span><br>
+       <label for="adresseclient">Adresse:</label> 
+       <input id="adresseclient"  type="texte" name="adresseclient" placeholder="adresse"  required><br>
+       <span id="missadresse"></span><br>
+       <label for="emailclient">Email:</label>
+       <input id="emailclient" type="email" name="emailclient" placeholder="email"  required><br>
+       <span id="missemail"></span><br>
+        <input   type="button" onclick="envoipost" id="btn" value="valider commande">
+        
     </form>
 
-<footer>
-    <h4>Ornitedy - Entreprise artisanal ours en peluche</h4>
-    <div class="conteneur3">
-        <div class="element3">
-            <a href="facebook.com">facebook</a>
-                    </div>
-          <div class="element3">
-              <a href="twitter.com">twitter</a>
+<div id="resulto"></div>
 
-          </div>
-          <div class="element3">
-              <a href="instragram.com">instagram</a>
-          </div>          
-        </div>
    
-</footer>
+
 
 </body>
 <script src="form.js"></script>
