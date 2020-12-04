@@ -89,6 +89,7 @@ document.getElementById("total2").innerHTML = "Total de votre commande:   " + ta
 
 let products = [] ;
 let resulto = document.getElementById("resulto");
+document.body.appendChild(resulto);
 let submit = form[5] ;
 
 
@@ -162,24 +163,48 @@ function envoipost(){
       alert("votre panier est vide , vous ne pouvez passer commande")}
     
 else{
-  
+    let prixtotalcommande = [];
+  var returnid 
     var request = new XMLHttpRequest();
         
     request.onload = function () {
-      if (request.readyState === request.DONE && request.status === 200) {
-        var responso = JSON.parse(request.responseText);
-     resulto.innerHTML = responso.postData.text;
+      if (request.readyState === request.DONE && request.status === 201) {
+        var respons = JSON.parse(request.responseText);
+        returnid = respons
+     produits = returnid.products
+     for( i = 0 ; i < produits.length ; i++){
+         console.log(produits[i].price)
+         prixtotalcommande.push(produits[i].price)
+         const reducer = (accumulator, currentValue) => accumulator + currentValue;
+         console.log(prixtotalcommande.reduce(reducer));
+     
+
+       document.getElementById("divpanier").innerHTML= "" ; 
+       document.getElementById("formulaire").innerHTML="" ;
+       document.getElementById("total").innerHTML= "" ;
+      
+      
+    
+       var returnconfirm = document.createElement("div");
+       returnconfirm.innerHTML=`
+       <h2> Votre commande a bien était valider<h2>
+       <p> Nous vous remercions de votre commande <br> voici votre numero de commande:${returnid.orderId}</p>
+       <p>Le prix total de votre commande est de ${prixtotalcommande.reduce(reducer)} `
+       document.getElementById("divpanier").appendChild(returnconfirm);
+      
+    // resulto.innerHTML = responso.postData.text;
+     }
       }
-    };
-   
-    request.open('POST', 'http://localhost:3000/api/teddies/order' , true);
+    
+}
+    request.open('POST', 'http://localhost:3000/api/teddies/order');
     request.setRequestHeader('Content-Type', 'application/json');
-    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+   // request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     var contact ={
     firstName:  document.getElementById("nomclient").value ,
    lastName:  document.getElementById('prenomclient').value ,
-    adress: document.getElementById("adresseclient").value ,
+    address: document.getElementById("adresseclient").value ,
     city: document.getElementById("villeclient").value ,  
     email: document.getElementById("emailclient").value 
    
@@ -197,8 +222,4 @@ console.log(JSON.stringify(data));
     
 }
 
-    
-
-
-    
 
