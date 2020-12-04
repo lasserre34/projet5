@@ -34,7 +34,7 @@ function teddyinhtml(){
   menu.setAttribute("name" , "choixcouleur")
   submit = document.createElement("INPUT")
   submit.setAttribute("type","submit");
-  submit.setAttribute("onclick", `selectcolor('${teddy._id}')`)
+  submit.setAttribute("onclick", `selectcolor('${teddy._id}')`);
 
   formulaire.appendChild(titre);
   formulaire.appendChild(menu);
@@ -46,38 +46,42 @@ function teddyinhtml(){
      menu.appendChild(colorsElement);
      colorsElement.innerHTML= colors ; });
    document.getElementById("divprod").innerHTML= idarticle ;
-  
+   
     }
    }
   }; 
+  
 request.open("GET", "http://localhost:3000/api/teddies/" + idarticle );
       request.send();
+      let tbltid = [];
 function selectcolor(id){
+  
+
+
 var choixcouleur="" ; 
+
   // avant la boucle la couleur n'est pas choisie 
    for (var i=0; i<document.monForm.choixcouleur.length; i++){
       if (document.monForm.choixcouleur[i].selected){
           choixcouleur=document.monForm.choixcouleur[i].value;
-          break; // case cocher on sort de la boucle 
+        
+
+         
       }
     }
       if (choixcouleur==""){
         alert("Veuillez selectionner une couleur");}
       
       else{
-        localStorage.setItem("choixcouleur" , choixcouleur);
-        localStorage.setItem("selectedidpanier" , id )
-        localStorage.setItem("prix" , `${teddy.price}`)
+       
+      var idarticle = sessionStorage["idarticle"] ? JSON.parse(sessionStorage["idarticle"]) : [];
+  idarticle.push({id:id,colors:choixcouleur});
+  sessionStorage["idarticle"] = JSON.stringify(idarticle)
+  
+
+       
    }
      }
-/*
-      // VAR PRIX PRODUIT 5
-      // POUR TOTAL ADDITION
-      var price5_json = JSON.stringify(teddy5.price);
-      sessionStorage.setItem("prix5", price5_json);
-      // POUR TOTAL SOUSTRACTION 
-      var price55_json = JSON.stringify(teddy5.price);
-      sessionStorage.setItem("prix55",price55_json);
-      }
-   }
-   */
+
+      
+     

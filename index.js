@@ -1,5 +1,3 @@
-
-
 // RECUPERATION DES PRODUIT
 var teddies 
 
@@ -9,19 +7,16 @@ request.onreadystatechange = function() {
         var response = JSON.parse(this.responseText);
         teddies = response ;
       displayteddies() ;
-    
+   
     }
 };
 
 request.open("GET", "http://localhost:3000/api/teddies");
 request.send();
 
-
-
-
 function displayteddies(){
 
-  teddies.forEach(function(teddy, id  ) {
+  teddies.forEach(function(teddy) {
   var teddyy = document.createElement("div");
   teddyy.innerHTML =`<form name="form1" action="ficheproduit.html"  ><table>
     <thead>
