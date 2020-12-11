@@ -28,9 +28,12 @@ total()
     if(idarticleparse === null){
         document.getElementById('total').innerHTML = " VOTRE PANIER EST VIDE "
     }
+    else{
+        foreach()
+    }
  }
 
-
+function foreach(){
 idarticleparse.forEach(function(article , index){
     var responseid 
   var request = new XMLHttpRequest();
@@ -65,7 +68,7 @@ idarticleparse.forEach(function(article , index){
 request.open("GET", "http://localhost:3000/api/teddies/" + article.id );
 request.send();
 });
-
+}
 let  produit = []; 
 function supprimer(index){
    
@@ -82,7 +85,7 @@ document.getElementById("total2").innerHTML = "Total de votre commande:   " + ta
     console.log(idarticleparse)
    // sessionStorage.removeItem("idarticle");
     document.getElementById(index).innerHTML= "";
-   
+       foreach()
     
     }
 
@@ -111,48 +114,71 @@ formValid.addEventListener('click', validation );
 
 // FUNCTION VALIDATION FORMULAIRE
 function validation(event){
-for( i = 0 ; i < idarticleparse.length ; i++){
+  for( i = 0 ; i < idarticleparse.length ; i++){
     products.push(idarticleparse[i].id)
-}
+  }
    
         
-
-    
-    // SI le champs est vide 
+  
+  var motValid = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
+  var emailValid = /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
+  
+      // SI le champs est vide 
     if(nomclient.validity.valueMissing){
         event.preventDefault();
         missnom.textContent = "Nom manquant";
         missnom.style.color = "red";
-        if(prenomclient.validity.valueMissing){
+    }
+   else if (motValid.test(nomclient.value) == false){
+    event.preventDefault();
+     missnom.textContent = 'Format incorrect';
+      missnom.style.color = 'orange';
+      return false
+    }
+       if(prenomclient.validity.valueMissing){
            event.preventDefault();
            missprenom.textContent = "Prenom manquant";
            missprenom.style.color = "red";
-           if(villeclient.validity.valueMissing){
+    }
+   else if (motValid.test(prenomclient.value) == false){
+        event.preventDefault();
+         missprenom.textContent = 'Format incorrect';
+          missprenom.style.color = 'orange';
+          return false
+    }
+    if(villeclient.validity.valueMissing){
                event.preventDefault();
                missville.textContent = "ville manquant";
                missville.style.color = "red";
-               if(adresseclient.validity.valueMissing){
+    }
+  else  if (motValid.test(villeclient.value) == false){
+        event.preventDefault();
+         missville.textContent = 'Format incorrect';
+          missville.style.color = 'orange';
+          return false
+        }
+    if(adresseclient.validity.valueMissing){
                    event.preventDefault();
                    missadresse.textContent = "Adresse manquant";
                    missadresse.style.color = "red";
-                   if(emailclient.validity.valueMissing){
-                       event.preventDefault();
-                       missemail.textContent = "Email manquant";
-                       missemail.style.color = "red";
-                   }
-                } 
-            } 
-        } 
+    }              
+   else if(emailValid.test(emailclient.value) == false){
+    event.preventDefault();
+    missemail.textContent = 'Format incorrect';
+     missemail.style.color = 'orange';
+     return false
     }
-    
 
+ else{
+envoipost()
+ }
 
-else { 
+ 
 
     
    
-  envoipost()
- }
+  
+ 
 }
 function envoipost(){
    
@@ -217,7 +243,8 @@ var data ={
 
 console.log(JSON.stringify(data));
 
-    request.send(JSON.stringify(data));   
+    request.send(JSON.stringify(data));  
+    sessionStorage.removeItem("idarticle") 
 }
     
 }
