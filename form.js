@@ -16,39 +16,41 @@ var divpaniertotal2 = document.createElement("div");
 divpaniertotal2.setAttribute("id","total2");
 document.body.appendChild(divpaniertotal2);
 
- idarticleparse = sessionStorage.getItem("idarticle");
- idarticleparse = JSON.parse(idarticleparse)
+// Recuperation des id est des colors choisie
+idArticleParse = sessionStorage.getItem("idArticle");
+idArticleParse = JSON.parse(idArticleParse)
 
  
  // tableau pour le prix total de la commande 
- let tabloprice = [];
+let tabloPrice = [];
 // Si il n'y a pas de produit la page affiche votre panier est vide 
 total()
- function total(){
-    if(idarticleparse === null){
+function total(){
+    if(idArticleParse === null){
         document.getElementById('total').innerHTML = " VOTRE PANIER EST VIDE "
     }
     else{
-        foreach()
+        forEach()
     }
  }
-
-function foreach(){
-idarticleparse.forEach(function(article , index){
-    var responseid 
-  var request = new XMLHttpRequest();
-    request.onreadystatechange = function() {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            var response = JSON.parse(this.responseText);
-            responseid = response 
+// FUNCTION FOREACH QUI RECUP LES ID SELECTIONNER EST LES AFFICHE DANS LE PANIER 
+function forEach(){
+    idArticleParse.forEach(function(article , index){
+      var responseId 
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function() {
+         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+         var response = JSON.parse(this.responseText);
+         responseId = response 
             
 
-            var articleteddy =  document.createElement("div");
-            articleteddy.setAttribute("id", index);
-            articleteddy.innerHTML=` <thead>
+            var articleTeddy =  document.createElement("div");
+            articleTeddy.setAttribute("id", index);
+            articleTeddy.innerHTML=` <thead>
             <tr>
             <th><img src=${responseid.imageUrl}></th>
-            <th>Nom : ${responseid.name} </th><th>Couleur:${article.colors}</th><th> Prix: ${responseid.price} </th>
+            <th>Nom : ${responseid.name} </th><th>Couleur:${article.colors}</th>
+            <th> Prix: ${responseid.price} </th>
             <input id="btn" type="submit" onclick="supprimer('${index}')" value="Supprimer"></th></tr>
             </thead>
             <tbody></tbody>
@@ -62,37 +64,40 @@ idarticleparse.forEach(function(article , index){
             tabloprice.push(responseid.price)
             const reducer = (accumulator, currentValue) => accumulator + currentValue;
             console.log(tabloprice.reduce(reducer));
-        document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloprice.reduce(reducer)   
-    }   
-    }
-request.open("GET", "http://localhost:3000/api/teddies/" + article.id );
-request.send();
-});
+            document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloprice.reduce(reducer)   
+        }   
+     }
+          request.open("GET", "http://localhost:3000/api/teddies/" + article.id );
+          request.send();
+   });
 }
-let  produit = []; 
-function supprimer(index){
+
+   let  produit = []; 
+   //FUNCTION POUR SUPPRIMER DES PRODUIT DU PANIER 
+   function supprimer(index){
    
         document.getElementById(index).innerHTML= "" ;
-   delete idarticleparse[index]
-  delete tabloprice[index]
+        delete idarticleparse[index]
+        delete tabloprice[index]
   
-  console.log(tabloprice)
-  document.getElementById('total').innerHTML = "" ;
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  console.log(tabloprice.reduce(reducer));
-document.getElementById("total2").innerHTML = "Total de votre commande:   " + tabloprice.reduce(reducer)   
+        console.log(tabloprice)
+        document.getElementById('total').innerHTML = "" ;
+        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        console.log(tabloprice.reduce(reducer));
+        document.getElementById("total2").innerHTML = "Total de votre commande:   " + tabloprice.reduce(reducer)   
   
-    console.log(idarticleparse)
-   // sessionStorage.removeItem("idarticle");
-    document.getElementById(index).innerHTML= "";
-       foreach()
+        console.log(idarticleparse)
+        // sessionStorage.removeItem("idarticle");
+        document.getElementById(index).innerHTML= "";
+        // RAPPEL DE LA FONCTION FOREACH
+        foreach()
     
     }
 
-
+// TABLEAU QUI SERA ENVOYER A L API 
 let products = [] ;
-let resulto = document.getElementById("resulto");
-document.body.appendChild(resulto);
+
+// RECUP L'element 5 du formulaire 
 let submit = form[5] ;
 
 
@@ -119,133 +124,127 @@ function validation(event){
   }
    
         
+  // Regex pour validation formulaire   
+     var motValid = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
+     var emailValid = /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
   
-  var motValid = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
-  var emailValid = /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
-  
-      // SI le champs est vide 
+    // validation formulaire 
     if(nomclient.validity.valueMissing){
-        event.preventDefault();
-        missnom.textContent = "Nom manquant";
-        missnom.style.color = "red";
+         event.preventDefault();
+         missnom.textContent = "Nom manquant";
+         missnom.style.color = "red";
     }
-   else if (motValid.test(nomclient.value) == false){
-    event.preventDefault();
-     missnom.textContent = 'Format incorrect';
-      missnom.style.color = 'orange';
-      return false
+     else if (motValid.test(nomclient.value) == false){
+         event.preventDefault();
+         missnom.textContent = 'Format incorrect';
+         missnom.style.color = 'orange';
+         return false
     }
-       if(prenomclient.validity.valueMissing){
-           event.preventDefault();
-           missprenom.textContent = "Prenom manquant";
-           missprenom.style.color = "red";
+     if(prenomclient.validity.valueMissing){
+         event.preventDefault();
+         missprenom.textContent = "Prenom manquant";
+         missprenom.style.color = "red";
     }
-   else if (motValid.test(prenomclient.value) == false){
-        event.preventDefault();
+    else if (motValid.test(prenomclient.value) == false){
+         event.preventDefault();
          missprenom.textContent = 'Format incorrect';
-          missprenom.style.color = 'orange';
-          return false
+         missprenom.style.color = 'orange';
+         return false
     }
     if(villeclient.validity.valueMissing){
-               event.preventDefault();
-               missville.textContent = "ville manquant";
-               missville.style.color = "red";
+          event.preventDefault();
+          missville.textContent = "ville manquant";
+          missville.style.color = "red";
     }
-  else  if (motValid.test(villeclient.value) == false){
-        event.preventDefault();
-         missville.textContent = 'Format incorrect';
+    else  if (motValid.test(villeclient.value) == false){
+          event.preventDefault();
+          missville.textContent = 'Format incorrect';
           missville.style.color = 'orange';
           return false
-        }
+    }
     if(adresseclient.validity.valueMissing){
-                   event.preventDefault();
-                   missadresse.textContent = "Adresse manquant";
-                   missadresse.style.color = "red";
+          event.preventDefault();
+          missadresse.textContent = "Adresse manquant";
+          missadresse.style.color = "red";
     }              
    else if(emailValid.test(emailclient.value) == false){
-    event.preventDefault();
-    missemail.textContent = 'Format incorrect';
-     missemail.style.color = 'orange';
-     return false
+          event.preventDefault();
+          missemail.textContent = 'Format incorrect';
+          missemail.style.color = 'orange';
+          return false
     }
 
- else{
-envoipost()
- }
+    else{
+//  appel de la fonction envoipost()
+   envoipost()
+   }
+} // fermeture de la fonction validation 
 
- 
-
-    
-   
-  
- 
-}
+// fonction pour envoyer l'objet contact et le tableau products a lapi 
 function envoipost(){
    
-
-  var recupproduct = document.getElementById("total").innerHTML; 
+    var recupproduct = document.getElementById("total").innerHTML; 
     console.log(recupproduct);
     if( recupproduct === "0"){
-      alert("votre panier est vide , vous ne pouvez passer commande")}
+    alert("votre panier est vide , vous ne pouvez passer commande")
+    }
     
-else{
+    else{
     let prixtotalcommande = [];
-  var returnid 
+    var returnid 
     var request = new XMLHttpRequest();
         
     request.onload = function () {
-      if (request.readyState === request.DONE && request.status === 201) {
+        if (request.readyState === request.DONE && request.status === 201){
         var respons = JSON.parse(request.responseText);
+        // recuperation de la reponse de la requette POST
         returnid = respons
-     produits = returnid.products
-     for( i = 0 ; i < produits.length ; i++){
-         console.log(produits[i].price)
-         prixtotalcommande.push(produits[i].price)
-         const reducer = (accumulator, currentValue) => accumulator + currentValue;
-         console.log(prixtotalcommande.reduce(reducer));
+        produits = returnid.products
+          for( i = 0 ; i < produits.length ; i++){
+          console.log(produits[i].price)
+          prixtotalcommande.push(produits[i].price)
+          const reducer = (accumulator, currentValue) => accumulator + currentValue;
+          console.log(prixtotalcommande.reduce(reducer));
      
 
-       document.getElementById("divpanier").innerHTML= "" ; 
-       document.getElementById("formulaire").innerHTML="" ;
-       document.getElementById("total").innerHTML= "" ;
+          document.getElementById("divpanier").innerHTML= "" ; 
+          document.getElementById("formulaire").innerHTML="" ;
+          document.getElementById("total").innerHTML= "" ;
       
       
-    
-       var returnconfirm = document.createElement("div");
-       returnconfirm.innerHTML=`
-       <h2> Votre commande a bien était valider<h2>
-       <p> Nous vous remercions de votre commande <br> voici votre numero de commande:${returnid.orderId}</p>
-       <p>Le prix total de votre commande est de ${prixtotalcommande.reduce(reducer)} `
-       document.getElementById("divpanier").appendChild(returnconfirm);
-      
-    // resulto.innerHTML = responso.postData.text;
-     }
-      }
-    
+    // reponse inner html 
+          var returnconfirm = document.createElement("div");
+          returnconfirm.innerHTML=`
+          <h2> Votre commande a bien était valider<h2>
+          <p> Nous vous remercions de votre commande <br>
+          voici votre numero de commande:${returnid.orderId}</p>
+          <p>Le prix total de votre commande est de ${prixtotalcommande.reduce(reducer)} `
+          document.getElementById("divpanier").appendChild(returnconfirm);
+       }
+    }
 }
     request.open('POST', 'http://localhost:3000/api/teddies/order');
     request.setRequestHeader('Content-Type', 'application/json');
-   // request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+   
 
     var contact ={
     firstName:  document.getElementById("nomclient").value ,
-   lastName:  document.getElementById('prenomclient').value ,
+    lastName:  document.getElementById('prenomclient').value ,
     address: document.getElementById("adresseclient").value ,
     city: document.getElementById("villeclient").value ,  
     email: document.getElementById("emailclient").value 
-   
-}
+    }
 
-var data ={
+    var data ={
     contact: contact , 
     products : products 
-}
+    }
 
-console.log(JSON.stringify(data));
-
+    console.log(JSON.stringify(data));
+ 
     request.send(JSON.stringify(data));  
     sessionStorage.removeItem("idarticle") 
-}
+   }
     
 }
 
