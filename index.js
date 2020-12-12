@@ -1,3 +1,9 @@
+
+//creation div pour style 
+divCarousel = document.createElement("DIV");
+divCarousel.setAttribute("id","carousel-items");
+document.body.appendChild(divCarousel)
+
 // RECUPERATION DES PRODUIT DANS L ' API 
 var teddies 
 
@@ -18,6 +24,7 @@ function displayTeddies(){
 
   teddies.forEach(function(teddy) {
   var teddyy = document.createElement("div");
+  teddyy.setAttribute("class","carousel-item")
   teddyy.innerHTML =`<form name="form1" action="ficheproduit.html"  ><table>
     <thead>
     <tr>
@@ -29,7 +36,7 @@ function displayTeddies(){
     <tbody></tbody>
     </table></form>`
 
-       document.body.appendChild(teddyy) ;
+       document.getElementById("carousel-items").appendChild(teddyy)
   });
 
 }
