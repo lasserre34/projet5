@@ -7,8 +7,19 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  
-  <a href="index.html">produit</a>
+  <header>
+    <div class="conteneurnav">
+    <nav>
+      
+      <a class="navtitle" href="index.html"><h1>Orneteddy<span class="point">.</span></h1></a>
+      <ul>  
+           <li class="navlien"><a class="hoverlien" href="index.html">HOME</a></li>
+           <li class="navlien"><a class="hoverlien" href="panier.html">PANIER</a></li>
+        </ul>
+    </nav>
+    </div>
+  </header>
+ 
   <div id="formulaire">
      <h2>Formulaire de Commande</h2>
      <form id="form" name="formdecomande"   >   
@@ -27,7 +38,7 @@
        <label for="emailclient">Email:</label>
        <input id="emailclient" type="email" name="emailclient" placeholder="email"  required><br>
        <span id="missemail"></span><br>
-        <input   type="button"  onclick="envoipost" id="btn" value="valider commande">
+        <input   type="button"  id="btn" value="valider commande">
       
     </form>
   </div>
