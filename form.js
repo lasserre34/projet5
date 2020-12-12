@@ -46,18 +46,20 @@ function forEach(){
 
             var articleTeddy =  document.createElement("div");
             articleTeddy.setAttribute("id", index);
+            articleTeddy.setAttribute("class" , "background-panier");
             articleTeddy.innerHTML=` <thead>
             <tr>
-            <th><img src=${responseid.imageUrl}></th>
-            <th>Nom : ${responseid.name} </th><th>Couleur:${article.colors}</th>
-            <th> Prix: ${responseid.price} </th>
-            <input id="btn" type="submit" onclick="supprimer('${index}')" value="Supprimer"></th></tr>
+            <th><img class="image-panier" src=${responseId.imageUrl}></th>
+            <th><p class="flex-panier"> Nom: ${responseId.name}  </p></th>
+            <th> <p class="flex-panier"> Couleur: ${article.colors}</p></th>
+            <th><p class="flex-panier"> Prix: ${responseId.price} </p> </th>
+            <input class="flex-panier-btn" id="btn" type="submit" onclick="supprimer('${index}')" value="Supprimer"></tr>
             </thead>
             <tbody></tbody>
             </table></form>`
       
-     
-            document.getElementById("divpanier").appendChild(articleteddy)
+         
+            document.getElementById("divpanier").appendChild(articleTeddy)
 
 
      
@@ -75,9 +77,9 @@ function forEach(){
    let  produit = []; 
    //FUNCTION POUR SUPPRIMER DES PRODUIT DU PANIER 
    function supprimer(index){
-   
-        document.getElementById(index).innerHTML= "" ;
-        delete idarticleparse[index]
+    sessionStorage.removeItem("idArticle");
+    document.getElementById(index).innerHTML= "" ;
+        delete idArticleParse[index]
         delete tabloprice[index]
   
         console.log(tabloprice)
@@ -85,10 +87,8 @@ function forEach(){
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
         console.log(tabloprice.reduce(reducer));
         document.getElementById("total2").innerHTML = "Total de votre commande:   " + tabloprice.reduce(reducer)   
-  
-        console.log(idarticleparse)
-        // sessionStorage.removeItem("idarticle");
-        document.getElementById(index).innerHTML= "";
+        
+      
         // RAPPEL DE LA FONCTION FOREACH
         foreach()
     
@@ -119,8 +119,8 @@ formValid.addEventListener('click', validation );
 
 // FUNCTION VALIDATION FORMULAIRE
 function validation(event){
-  for( i = 0 ; i < idarticleparse.length ; i++){
-    products.push(idarticleparse[i].id)
+  for( i = 0 ; i < idArticleParse.length ; i++){
+    products.push(idArticleParse[i].id)
   }
    
         
@@ -214,12 +214,13 @@ function envoipost(){
       
     // reponse inner html 
           var returnconfirm = document.createElement("div");
-          returnconfirm.innerHTML=`
-          <h2> Votre commande a bien était valider<h2>
+          returnconfirm.innerHTML=`<div class="confirmation-panier">
+          <h2> Votre commande a bien était valider</h2>
           <p> Nous vous remercions de votre commande <br>
-          voici votre numero de commande:${returnid.orderId}</p>
-          <p>Le prix total de votre commande est de ${prixtotalcommande.reduce(reducer)} `
-          document.getElementById("divpanier").appendChild(returnconfirm);
+          voici votre numero de commande:<br><span class="idconfirm">${returnid.orderId}</span></p>
+          <p>Le prix total de votre commande est de ${prixtotalcommande.reduce(reducer)}
+          </div> `
+          document.getElementById("formulaire").appendChild(returnconfirm);
        }
     }
 }
@@ -243,7 +244,7 @@ function envoipost(){
     console.log(JSON.stringify(data));
  
     request.send(JSON.stringify(data));  
-    sessionStorage.removeItem("idarticle") 
+    sessionStorage.removeItem("idArticle") 
    }
     
 }
