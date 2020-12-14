@@ -17,12 +17,9 @@ request.send();
 function displayTeddies(){
   
   teddies.forEach(function(teddy) {
-    var g = new URL("https://lasserre34.github.io/projet5/index.html");
-    var b = new URL('en-US/docs', g )
-    console.log(b)
     var teddyy = document.createElement("div");
     teddyy.setAttribute("class","carousel-item")
-    teddyy.innerHTML =`<form name="form1" action="https://lasserre34.github.io/projet5/index.html/en-US/docs"   >
+    teddyy.innerHTML =`<form name="form1" action="ficheproduit.html"   >
     <img class="img-index" src=${teddy.imageUrl}></th>
     <h3>Nom : ${teddy.name}</h3>
     <p class="price-index"> Prix: ${teddy.price}</p>

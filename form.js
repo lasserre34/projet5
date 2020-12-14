@@ -7,17 +7,9 @@ var divPanier = document.createElement("div");
 divPanier.setAttribute("id","divpanier");
 headPanier.appendChild(divPanier);
 
-var divPanier1 = document.createElement("div");
-divPanier1.setAttribute("id","divpanier1");
-document.body.appendChild(divPanier1);
-
 var divPanierTotal = document.createElement("div");
 divPanierTotal.setAttribute("id","total");
 headPanier.appendChild(divPanierTotal);
-
-var divPanierTotal2 = document.createElement("div");
-divPanierTotal2.setAttribute("id","total2");
-document.body.appendChild(divPanierTotal2);
 
 // Recuperation des id est des colors choisie
 idArticleParse = sessionStorage.getItem("idArticle");
@@ -63,56 +55,38 @@ function forEach(){
             </thead>
             <tbody></tbody>
             </table></form>`
-           
-            
-           
-         calculTotal()
             document.getElementById("divpanier").appendChild(articleTeddy)
-       
-            
-           tabloId.push(responseId._id)
-           console.log(tabloId)
-            function calculTotal(){
-                tabloPrice.push(responseId.price)
-            
+            tabloId.push(responseId._id)
+            tabloPrice.push(responseId.price)
             const reducer = (accumulator, currentValue) => accumulator + currentValue;
             console.log(tabloPrice.reduce(reducer));
             document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloPrice.reduce(reducer)   
-            }
-        }   
+            
+         }
      }
-          request.open("GET", "http://localhost:3000/api/teddies/" + article.id );
-          request.send();
+request.open("GET", "http://localhost:3000/api/teddies/" + article.id );
+request.send();
    });
 }
 
-   let  produit = []; 
    //FUNCTION POUR SUPPRIMER DES PRODUIT DU PANIER 
    function supprimer(index){
     
         sessionStorage.removeItem("idArticle");
         document.getElementById(index).innerHTML= "" ;
-        document.getElementById('total').innerHTML= "" ;
+        document.getElementById('total').innerHTML= "" ;        
         delete tabloId[index]
         delete tabloPrice[index]
         console.log(tabloPrice)
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
-            console.log(tabloPrice.reduce(reducer));
-            document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloPrice.reduce(reducer)   
-      
-        // RAPPEL DE LA FONCTION FOREACH
-        //document.getElementById(headPanier).innerHTML=""
-       
-    
+        console.log(tabloPrice.reduce(reducer));
+        document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloPrice.reduce(reducer)   
     }
 
 // TABLEAU QUI SERA ENVOYER A L API 
 let products = [] ;
-
 // RECUP L'element 5 du formulaire 
 let submit = form[5] ;
-
-
 // Variable pour fonction de validation formulaire
 var formValid = document.getElementById("btn");
 var nomClient = document.getElementById("nomclient");
@@ -132,11 +106,11 @@ formValid.addEventListener('click', validation );
 let tabloIdConcat = [];
 // FUNCTION VALIDATION FORMULAIRE
 function validation(event){
-  
 // function pour enlever les element null du tableaux!Important!
-   var filtered = tabloId.filter(function (el) {
+var filtered = tabloId.filter(function (el) {
     return el != null;
   });
+  
   
    products = filtered.concat(tabloIdConcat)
  
@@ -222,14 +196,11 @@ function envoiPost(){
           prixTotalCommande.push(produits[i].price)
           const reducer = (accumulator, currentValue) => accumulator + currentValue;
           console.log(prixTotalCommande.reduce(reducer));
-     
-
-          document.getElementById("divpanier").innerHTML= "" ; 
+           document.getElementById("divpanier").innerHTML= "" ; 
           document.getElementById("formulaire").innerHTML="" ;
           document.getElementById("total").innerHTML= "" ;
       
-      
-    // reponse inner html 
+      // reponse inner html 
           var returnConfirm = document.createElement("div");
           returnConfirm.innerHTML=`<div class="confirmation-panier">
           <h2> Votre commande a bien était valider</h2>
@@ -257,13 +228,10 @@ function envoiPost(){
     contact: contact , 
     products : products 
     }
-
     console.log(JSON.stringify(data));
- 
     request.send(JSON.stringify(data));  
     sessionStorage.removeItem("idArticle") 
-   }
-    
+    }
 }
 
 
