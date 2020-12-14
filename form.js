@@ -1,26 +1,29 @@
 
 // Creation div pour produit  panier
-var divpanier = document.createElement("div");
-divpanier.setAttribute("id","divpanier");
-document.body.appendChild(divpanier);
 
-var divpanier1 = document.createElement("div");
-divpanier1.setAttribute("id","divpanier1");
-document.body.appendChild(divpanier1);
+var headPanier = document.getElementById("head-panier");
 
-var divpaniertotal = document.createElement("div");
-divpaniertotal.setAttribute("id","total");
-document.body.appendChild(divpaniertotal);
+var divPanier = document.createElement("div");
+divPanier.setAttribute("id","divpanier");
+headPanier.appendChild(divPanier);
 
-var divpaniertotal2 = document.createElement("div");
-divpaniertotal2.setAttribute("id","total2");
-document.body.appendChild(divpaniertotal2);
+var divPanier1 = document.createElement("div");
+divPanier1.setAttribute("id","divpanier1");
+document.body.appendChild(divPanier1);
+
+var divPanierTotal = document.createElement("div");
+divPanierTotal.setAttribute("id","total");
+headPanier.appendChild(divPanierTotal);
+
+var divPanierTotal2 = document.createElement("div");
+divPanierTotal2.setAttribute("id","total2");
+document.body.appendChild(divPanierTotal2);
 
 // Recuperation des id est des colors choisie
 idArticleParse = sessionStorage.getItem("idArticle");
 idArticleParse = JSON.parse(idArticleParse)
 
- 
+ let tabloId = [];
  // tableau pour le prix total de la commande 
 let tabloPrice = [];
 // Si il n'y a pas de produit la page affiche votre panier est vide 
@@ -33,6 +36,8 @@ function total(){
         forEach()
     }
  }
+
+
 // FUNCTION FOREACH QUI RECUP LES ID SELECTIONNER EST LES AFFICHE DANS LE PANIER 
 function forEach(){
     idArticleParse.forEach(function(article , index){
@@ -54,19 +59,26 @@ function forEach(){
             <th> <p class="flex-panier"> Couleur: ${article.colors}</p></th>
             <th><p class="flex-panier"> Prix: ${responseId.price} </p> </th>
             <input class="flex-panier-btn" id="btn" type="submit" onclick="supprimer('${index}')" value="Supprimer"></tr>
+            <input id="id-cache" type="hidden" value="${responseId._id}">
             </thead>
             <tbody></tbody>
             </table></form>`
-      
-         
+           
+            
+           
+         calculTotal()
             document.getElementById("divpanier").appendChild(articleTeddy)
-
-
-     
-            tabloprice.push(responseid.price)
+       
+            
+           tabloId.push(responseId._id)
+           console.log(tabloId)
+            function calculTotal(){
+                tabloPrice.push(responseId.price)
+            
             const reducer = (accumulator, currentValue) => accumulator + currentValue;
-            console.log(tabloprice.reduce(reducer));
-            document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloprice.reduce(reducer)   
+            console.log(tabloPrice.reduce(reducer));
+            document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloPrice.reduce(reducer)   
+            }
         }   
      }
           request.open("GET", "http://localhost:3000/api/teddies/" + article.id );
@@ -77,20 +89,20 @@ function forEach(){
    let  produit = []; 
    //FUNCTION POUR SUPPRIMER DES PRODUIT DU PANIER 
    function supprimer(index){
-    sessionStorage.removeItem("idArticle");
-    document.getElementById(index).innerHTML= "" ;
-        delete idArticleParse[index]
-        delete tabloprice[index]
-  
-        console.log(tabloprice)
-        document.getElementById('total').innerHTML = "" ;
+    
+        sessionStorage.removeItem("idArticle");
+        document.getElementById(index).innerHTML= "" ;
+        document.getElementById('total').innerHTML= "" ;
+        delete tabloId[index]
+        delete tabloPrice[index]
+        console.log(tabloPrice)
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
-        console.log(tabloprice.reduce(reducer));
-        document.getElementById("total2").innerHTML = "Total de votre commande:   " + tabloprice.reduce(reducer)   
-        
+            console.log(tabloPrice.reduce(reducer));
+            document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloPrice.reduce(reducer)   
       
         // RAPPEL DE LA FONCTION FOREACH
-        foreach()
+        //document.getElementById(headPanier).innerHTML=""
+       
     
     }
 
@@ -103,108 +115,113 @@ let submit = form[5] ;
 
 // Variable pour fonction de validation formulaire
 var formValid = document.getElementById("btn");
-var nomclient = document.getElementById("nomclient");
-var missnom = document.getElementById("missnom");
-var prenomclient = document.getElementById("prenomclient");
-var missprenom = document.getElementById("missprenom");
-var villeclient = document.getElementById("villeclient");
-var missville = document.getElementById("missville");
-var adresseclient = document.getElementById("adresseclient");
-var missadresse = document.getElementById("missadresse");
-var emailclient = document.getElementById("emailclient");
-var missemail = document.getElementById("missemail");
+var nomClient = document.getElementById("nomclient");
+var missNom = document.getElementById("missnom");
+var prenomClient = document.getElementById("prenomclient");
+var missPrenom = document.getElementById("missprenom");
+var villeClient = document.getElementById("villeclient");
+var missVille = document.getElementById("missville");
+var adresseClient = document.getElementById("adresseclient");
+var missAdresse = document.getElementById("missadresse");
+var emailClient = document.getElementById("emailclient");
+var missEmail = document.getElementById("missemail");
 
 formValid.addEventListener('click', validation );
 
 
+let tabloIdConcat = [];
 // FUNCTION VALIDATION FORMULAIRE
 function validation(event){
-  for( i = 0 ; i < idArticleParse.length ; i++){
-    products.push(idArticleParse[i].id)
-  }
-   
+  
+// function pour enlever les element null du tableaux!Important!
+   var filtered = tabloId.filter(function (el) {
+    return el != null;
+  });
+  
+   products = filtered.concat(tabloIdConcat)
+ 
         
   // Regex pour validation formulaire   
      var motValid = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
      var emailValid = /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
   
     // validation formulaire 
-    if(nomclient.validity.valueMissing){
+    if(nomClient.validity.valueMissing){
          event.preventDefault();
-         missnom.textContent = "Nom manquant";
-         missnom.style.color = "red";
+         missNom.textContent = "Nom manquant";
+         missNom.style.color = "red";
     }
-     else if (motValid.test(nomclient.value) == false){
+     else if (motValid.test(nomClient.value) == false){
          event.preventDefault();
-         missnom.textContent = 'Format incorrect';
-         missnom.style.color = 'orange';
+         missNom.textContent = 'Format incorrect';
+         missNom.style.color = 'orange';
          return false
     }
-     if(prenomclient.validity.valueMissing){
+     if(prenomClient.validity.valueMissing){
          event.preventDefault();
-         missprenom.textContent = "Prenom manquant";
-         missprenom.style.color = "red";
+         missPrenom.textContent = "Prenom manquant";
+         missPrenom.style.color = "red";
     }
-    else if (motValid.test(prenomclient.value) == false){
+    else if (motValid.test(prenomClient.value) == false){
          event.preventDefault();
-         missprenom.textContent = 'Format incorrect';
-         missprenom.style.color = 'orange';
+         missPrenom.textContent = 'Format incorrect';
+         missPrenom.style.color = 'orange';
          return false
     }
-    if(villeclient.validity.valueMissing){
+    if(villeClient.validity.valueMissing){
           event.preventDefault();
-          missville.textContent = "ville manquant";
-          missville.style.color = "red";
+          missVille.textContent = "ville manquant";
+          missVille.style.color = "red";
     }
-    else  if (motValid.test(villeclient.value) == false){
+    else  if (motValid.test(villeClient.value) == false){
           event.preventDefault();
-          missville.textContent = 'Format incorrect';
-          missville.style.color = 'orange';
+          missVille.textContent = 'Format incorrect';
+          missVille.style.color = 'orange';
           return false
     }
-    if(adresseclient.validity.valueMissing){
+    if(adresseClient.validity.valueMissing){
           event.preventDefault();
-          missadresse.textContent = "Adresse manquant";
-          missadresse.style.color = "red";
+          missAdresse.textContent = "Adresse manquant";
+          missAdresse.style.color = "red";
     }              
-   else if(emailValid.test(emailclient.value) == false){
+   else if(emailValid.test(emailClient.value) == false){
           event.preventDefault();
-          missemail.textContent = 'Format incorrect';
-          missemail.style.color = 'orange';
+          missEmail.textContent = 'Format incorrect';
+          missEmail.style.color = 'orange';
           return false
     }
 
     else{
 //  appel de la fonction envoipost()
-   envoipost()
+   envoiPost()
    }
 } // fermeture de la fonction validation 
 
 // fonction pour envoyer l'objet contact et le tableau products a lapi 
-function envoipost(){
+function envoiPost(){
    
-    var recupproduct = document.getElementById("total").innerHTML; 
-    console.log(recupproduct);
-    if( recupproduct === "0"){
+    var recupProduct = document.getElementById("total").innerHTML; 
+    console.log(recupProduct);
+    if( recupProduct === "0"){
     alert("votre panier est vide , vous ne pouvez passer commande")
     }
     
     else{
-    let prixtotalcommande = [];
-    var returnid 
+    let prixTotalCommande = [];
+    var returnId 
     var request = new XMLHttpRequest();
         
     request.onload = function () {
         if (request.readyState === request.DONE && request.status === 201){
         var respons = JSON.parse(request.responseText);
         // recuperation de la reponse de la requette POST
-        returnid = respons
-        produits = returnid.products
+        returnId = respons
+        produits = returnId.products
           for( i = 0 ; i < produits.length ; i++){
           console.log(produits[i].price)
-          prixtotalcommande.push(produits[i].price)
+          prixTotalCommande.push(produits[i].price)
           const reducer = (accumulator, currentValue) => accumulator + currentValue;
-          console.log(prixtotalcommande.reduce(reducer));
+          console.log(prixTotalCommande.reduce(reducer));
      
 
           document.getElementById("divpanier").innerHTML= "" ; 
@@ -213,14 +230,14 @@ function envoipost(){
       
       
     // reponse inner html 
-          var returnconfirm = document.createElement("div");
-          returnconfirm.innerHTML=`<div class="confirmation-panier">
+          var returnConfirm = document.createElement("div");
+          returnConfirm.innerHTML=`<div class="confirmation-panier">
           <h2> Votre commande a bien était valider</h2>
           <p> Nous vous remercions de votre commande <br>
-          voici votre numero de commande:<br><span class="idconfirm">${returnid.orderId}</span></p>
-          <p>Le prix total de votre commande est de ${prixtotalcommande.reduce(reducer)}
+          voici votre numero de commande:<br><span class="idconfirm">${returnId.orderId}</span></p>
+          <p>Le prix total de votre commande est de ${prixTotalCommande.reduce(reducer)}
           </div> `
-          document.getElementById("formulaire").appendChild(returnconfirm);
+          document.getElementById("formulaire").appendChild(returnConfirm);
        }
     }
 }
