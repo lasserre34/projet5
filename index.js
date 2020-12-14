@@ -17,7 +17,8 @@ request.send();
 function displayTeddies(){
   
   teddies.forEach(function(teddy) {
-    var g = new URL("https://lasserre34.github.io/projet5/" + teddy._id);
+    var g = new URL("https://lasserre34.github.io/projet5/ficheproduit.html/" + teddy._id);
+    console.log(g)
     var teddyy = document.createElement("div");
     teddyy.setAttribute("class","carousel-item")
     teddyy.innerHTML =`<form name="form1" action="ficheproduit.html/${teddy._id}"   >
