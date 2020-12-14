@@ -22,7 +22,7 @@ function displayTeddies(){
     console.log(b)
     var teddyy = document.createElement("div");
     teddyy.setAttribute("class","carousel-item")
-    teddyy.innerHTML =`<form name="form1" action="https://lasserre34.github.io/projet5/ficheproduit.html/en-US/docs"   >
+    teddyy.innerHTML =`<form name="form1" action="https://lasserre34.github.io/projet5/index.html/en-US/docs"   >
     <img class="img-index" src=${teddy.imageUrl}></th>
     <h3>Nom : ${teddy.name}</h3>
     <p class="price-index"> Prix: ${teddy.price}</p>
