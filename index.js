@@ -17,7 +17,7 @@ request.send();
 function displayTeddies(){
   
   teddies.forEach(function(teddy) {
-    var g = new URL("https://lasserre34.github.io/projet5/index.html/ficheproduit.html");
+    var g = new URL("https://lasserre34.github.io/projet5/index.html");
     var b = new URL('en-US/docs', g )
     console.log(b)
     var teddyy = document.createElement("div");
