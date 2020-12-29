@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang=fr>
+
 <head>
-<meta charset="utf-8">
+	<meta charset="utf-8">
 
-<title>Panier</title>
-<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Panier</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-  <header>
-    <div class="conteneurnav">
-    <nav>
-      
-      <a class="navtitle" href="index.html"><h1>Orneteddy<span class="point">.</span></h1></a>
-      <ul>  
-           <li class="navlien"><a class="hoverlien" href="index.html">HOME</a></li>
-           <li class="navlien"><a class="hoverlien" href="panier.html">PANIER</a></li>
-        </ul>
-    </nav>
-    </div>
-  </header>
- <div id="head-panier"></div>
- 
-  <div id="formulaire">
-     <h2>Formulaire de Commande</h2>
-     <form id="form"  name="formdecomande"   >   
-       <label for="nomclient">Nom:</label><br>
-       <input class="text-form" id="nomclient" type="texte" name="nomclient"  placeholder="nom"  required><br>
-       <span id="missnom"></span><br>
-       <label for="prenomclient">Prenom:</label><br>
-       <input  class="text-form" id="prenomclient"  type="texte" name="prenomclient" placeholder="prenom"  minlength="2" required><br>
-       <span id="missprenom"></span><br>
-       <label for="villeclient">Ville:</label><br>
-        <input class="text-form" id="villeclient" type="texte" name="villeclient"   placeholder="ville"  required ><br>
-        <span id="missville"></span><br>
-       <label for="adresseclient">Adresse:</label><br> 
-       <input id="adresseclient"  type="texte" name="adresseclient" placeholder="adresse"  required><br>
-       <span id="missadresse"></span><br>
-       <label for="emailclient">Email:</label><br>
-       <input  class="text-form" id="emailclient" type="email" name="emailclient" placeholder="email"  required><br>
-       <span id="missemail"></span><br>
-        <input  class="btn-form" type="button"  id="btn" value="valider commande">
-      
-    </form>
-  </div>
-<div id="resulto"></div>
 
-   
+<body>
+	<header>
+		<div class="conteneurnav">
+			<nav>
+
+				<a class="navtitle" href="index.html">
+					<h1>Orneteddy<span class="point">.</span></h1>
+				</a>
+				<ul>
+					<li class="navlien"><a class="hoverlien" href="index.html">HOME</a></li>
+					<li class="navlien"><a class="hoverlien" href="panier.html">PANIER</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<div id="head-panier"></div>
+
+	<div id="formulaire">
+		<h2>Formulaire de Commande</h2>
+		<form id="form" name="formdecomande">
+			<label for="nomclient">Nom:</label><br>
+			<input class="text-form" id="nomclient" type="texte" name="nomclient" placeholder="nom" required><br>
+			<span id="missnom"></span><br>
+			<label for="prenomclient">Prenom:</label><br>
+			<input class="text-form" id="prenomclient" type="texte" name="prenomclient" placeholder="prenom" minlength="2" required><br>
+			<span id="missprenom"></span><br>
+			<label for="villeclient">Ville:</label><br>
+			<input class="text-form" id="villeclient" type="texte" name="villeclient" placeholder="ville" required><br>
+			<span id="missville"></span><br>
+			<label for="adresseclient">Adresse:</label><br>
+			<input id="adresseclient" type="texte" name="adresseclient" placeholder="adresse" required><br>
+			<span id="missadresse"></span><br>
+			<label for="emailclient">Email:</label><br>
+			<input class="text-form" id="emailclient" type="email" name="emailclient" placeholder="email" required><br>
+			<span id="missemail"></span><br>
+			<input class="btn-form" type="button" id="btn" value="valider commande">
+
+		</form>
+	</div>
+	<div id="resulto"></div>
 
 
 </body>
 <script src="form.js"></script>
+
 </html>

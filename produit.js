@@ -1,34 +1,34 @@
-
 // RECUPERATION DE L'ID DANS LE LOCALSTORAGE
-  var idArticle = localStorage.getItem("selectedArticle");
-  console.log(idArticle);
- // CREATION DIV POUR PRODUIT
-  var divProd = document.createElement("div");
-  divProd.setAttribute("id","divprod");
-  document.body.appendChild(divProd);
+var idArticle = localStorage.getItem("selectedArticle");
+console.log(idArticle);
+// CREATION DIV POUR PRODUIT
+var divProd = document.createElement("div");
+divProd.setAttribute("id", "divprod");
+document.body.appendChild(divProd);
 
-  var divCouleur = document.createElement("div");
-  divCouleur.setAttribute("id","divcouleur");
-  divProd.appendChild(divCouleur);
+var divCouleur = document.createElement("div");
+divCouleur.setAttribute("id", "divcouleur");
+divProd.appendChild(divCouleur);
 
-// RECUPERATION DES PRODUIT VIA LEUR ID
-  var teddy
-  var request = new XMLHttpRequest();
-  request.onreadystatechange = function() {
-  if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-  var response = JSON.parse(this.responseText);
-  teddy = response ;
-  teddyColors = teddy.colors;
-  teddyInHtml()
- }
+// RECUPERATION DES PRODUITS VIA LEUR ID
+var teddy
+var request = new XMLHttpRequest();
+request.onreadystatechange = function() {
+    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        teddy = response;
+        // récupération du tableau colors
+        teddyColors = teddy.colors;
+        teddyInHtml()
+    }
 }
-request.open("GET", "http://localhost:3000/api/teddies/" + idArticle );
+request.open("GET", "http://localhost:3000/api/teddies/" + idArticle);
 request.send();
-    
-function teddyInHtml(){
+// affichage in html du produit selectionné
+function teddyInHtml() {
 
-     var idArticle= document.createElement("div");
-     idArticle.innerHTML= `
+    var idArticle = document.createElement("div");
+    idArticle.innerHTML = `
      <h1 class="hprod"> Ours en peluche ${teddy.name}</h1>
      <div id="conteneur-fiche-produit">
      <form name="formValue" class="textCenter"  action="panier.html">
@@ -42,55 +42,60 @@ function teddyInHtml(){
      </div>
      </div>
      </form>`
-     // Creation d'un formulaire pour afficher les tableau color
-     document.getElementById("divprod").appendChild(idArticle) ; 
+    /* Création d'un formulaire pour afficher le tableau color qui permettra de 
+     sélectionner la couleur du produit*/
+    document.getElementById("divprod").appendChild(idArticle);
 
-     formulaire = document.createElement('FORM');
-     formulaire.setAttribute("name","monForm");
-     formulaire.setAttribute("action","panier.html");
-     titre = document.createElement('LABEL');
-     titre.innerHTML = "Couleur: ";
-     menu = document.createElement("SELECT")
-     menu.setAttribute("name" , "choixCouleur")
-     submit = document.createElement("INPUT")
-     submit.setAttribute("type","submit");
-     submit.setAttribute("class","validpanier")
-     submit.setAttribute("value","Ajouter au panier")
-     submit.setAttribute("onclick", `selectColor('${teddy._id}')`);
-     formulaire.appendChild(titre);
-     formulaire.appendChild(menu);
-     formulaire.appendChild(submit);
-     document.body.appendChild(formulaire)
-     divprod.appendChild(formulaire)
+    formulaire = document.createElement('FORM');
+    formulaire.setAttribute("name", "monForm");
+    formulaire.setAttribute("action", "panier.html");
+    titre = document.createElement('LABEL');
+    titre.innerHTML = "Couleur: ";
+    menu = document.createElement("SELECT")
+    menu.setAttribute("name", "choixCouleur")
+    submit = document.createElement("INPUT")
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("class", "validpanier")
+    submit.setAttribute("value", "Ajouter au panier")
+    submit.setAttribute("onclick", `selectColor('${teddy._id}')`);
+    formulaire.appendChild(titre);
+    formulaire.appendChild(menu);
+    formulaire.appendChild(submit);
+    document.body.appendChild(formulaire)
+    divprod.appendChild(formulaire)
 
     // fonction ForEach pour l'affichage des colors
-     teddyColors.forEach(function(colors){
-      colorsElement = document.createElement("option");
-      menu.appendChild(colorsElement);
-      colorsElement.innerHTML= colors ; 
-      document.getElementById("divcouleur").appendChild(formulaire)  ;
-   });
-}; 
-      // fonction pour l'enregistrement de la couleur choisie est de l'id du produit
-function selectColor(id){
-  
-  var choixCouleur="" ; 
+    teddyColors.forEach(function(colors) {
+        colorsElement = document.createElement("option");
+        menu.appendChild(colorsElement);
+        colorsElement.innerHTML = colors;
+        document.getElementById("divcouleur").appendChild(formulaire);
+    });
+};
+// fonction pour l'enregistrement du produit dans le sessionStorage
+function selectColor(id) {
 
-  // avant la boucle la couleur n'est pas choisie 
-   for (var i=0; i<document.monForm.choixCouleur.length; i++){
-      if (document.monForm.choixCouleur[i].selected){
-      choixCouleur=document.monForm.choixCouleur[i].value;
-     }
-  }
-     if (choixCouleur==""){
-     alert("Veuillez selectionner une couleur");
+    var choixCouleur = "";
+
+    // avant la boucle la couleur n'est pas choisie 
+    for (var i = 0; i < document.monForm.choixCouleur.length; i++) {
+        if (document.monForm.choixCouleur[i].selected) {
+            choixCouleur = document.monForm.choixCouleur[i].value;
+        }
     }
-     else{
-         var idArticle = sessionStorage["idArticle"] ? JSON.parse(sessionStorage["idArticle"]) : [];
-         idArticle.push({id:id,colors:choixCouleur, value:1});
-         sessionStorage["idArticle"] = JSON.stringify(idArticle)
+    if (choixCouleur == "") {
+        alert("Veuillez selectionner une couleur");
+    } else {
+        // enregistrement du produit selectionné dans le panier 
+        var panier = sessionStorage["panier"] ? JSON.parse(sessionStorage["panier"]) : [] ; 
+        panier.push({
+            id: id,
+            colors: choixCouleur,
+            quantiter: 1 ,
+            price: teddy.price ,
+            quantiterId: id ,
+
+        });
+        sessionStorage["panier"] = JSON.stringify(panier)
     }
 }
-
-      
-     
