@@ -1,6 +1,14 @@
-// RECUPERATION DE L'ID DANS LE LOCALSTORAGE
-var idArticle = localStorage.getItem("selectedArticle");
-console.log(idArticle);
+// RECUPERATION DE L'ID DANS L'URL
+var $_GET = [];
+var parts = window.location.search.substr(1).split("&");
+for (var i = 0; i < parts.length; i++) {
+    var temp = parts[i].split("=");
+    console.log(temp)
+   
+}
+temp.pop()
+console.log(temp);
+
 // CREATION DIV POUR PRODUIT
 var divProd = document.createElement("div");
 divProd.setAttribute("id", "divprod");
@@ -20,13 +28,14 @@ request.onreadystatechange = function() {
         // récupération du tableau colors
         teddyColors = teddy.colors;
         teddyInHtml()
+     
     }
 }
-request.open("GET", "http://localhost:3000/api/teddies/" + idArticle);
+request.open("GET", "http://localhost:3000/api/teddies/" + temp);
 request.send();
 // affichage in html du produit selectionné
 function teddyInHtml() {
-
+    var  teddyPrice = teddy.price / 100 ; 
     var idArticle = document.createElement("div");
     idArticle.innerHTML = `
      <h1 class="hprod"> Ours en peluche ${teddy.name}</h1>
@@ -36,7 +45,7 @@ function teddyInHtml() {
      <img class="imgprod" src=${teddy.imageUrl}></div>
      <div class="des-produit">
      <p>Nom: ${teddy.name}</p>
-     <p>Prix: ${teddy.price}</p>
+     <p>Prix: ${teddyPrice} &euro;</p>
      <p>Description:<br> ${teddy.description}</p>
      <input type="hidden" name="quantiter" value="1"></div>
      </div>
@@ -76,7 +85,7 @@ function teddyInHtml() {
 function selectColor(id) {
 
     var choixCouleur = "";
-
+ 
     // avant la boucle la couleur n'est pas choisie 
     for (var i = 0; i < document.monForm.choixCouleur.length; i++) {
         if (document.monForm.choixCouleur[i].selected) {
@@ -92,7 +101,7 @@ function selectColor(id) {
             id: id,
             colors: choixCouleur,
             quantiter: 1 ,
-            price: teddy.price ,
+            price: teddy.price / 100 ,
             quantiterId: id ,
 
         });

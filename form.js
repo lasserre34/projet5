@@ -9,20 +9,23 @@ var divPanierTotal = document.createElement("div");
 divPanierTotal.setAttribute("id", "total");
 headPanier.appendChild(divPanierTotal);
 
+recupPanier()
+function recupPanier(){
 // Récupération des produits dans le panier 
 panier = sessionStorage.getItem("panier");
 panier = JSON.parse(panier)
-
+}
+ 
 
 // tableaux pour les id , pour la requette POST
 let tabloId = [];
 let products = [];
-
+let tabloP = [];
 // tableau pour le prix total de la commande 
 let tabloPrice = [];
 // Si il n'y a pas de produit la page affiche "votre panier est vide"
-total()
 
+total()
 function total() {
 	if (panier === null) {
 		document.getElementById('total').innerHTML = " VOTRE PANIER EST VIDE "
@@ -41,16 +44,16 @@ function forEach() {
 			if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
 				var response = JSON.parse(this.responseText);
 				responseId = response
-
+                responseId.price = responseId.price / 100
 				var articleTeddy = document.createElement("div");
-				articleTeddy.setAttribute("id", responseId._id);
+				articleTeddy.setAttribute("id", responseId._id );
 				articleTeddy.setAttribute("class", "background-panier");
 				articleTeddy.innerHTML = ` <thead>
             <tr>
             <th><img class="image-panier" src=${responseId.imageUrl}></th>
             <th><p class="flex-panier"> Nom: ${responseId.name}  </p></th>
             <th> <p class="flex-panier"> Couleur: ${article.colors}</p></th>
-            <th><p id="${index}-priceQuant" class="flex-panier"> Prix: ${article.price} </p> </th>
+            <th><p id="${responseId._id}-priceQuant" class="flex-panier"> Prix: ${article.price} &euro; </p> </th>
             <input id="${responseId._id}-input" type="number" value="${article.quantiter}">
             <input class="flex-panier-btn" onclick="supprimer(${index})" id="btnid" type="submit"  value="Supprimer"></tr>
             <input id="id-cache" type="hidden" value="${responseId._id}">
@@ -60,13 +63,15 @@ function forEach() {
 
 				console.log(tabloId)
 				/* récuperer les prix des produits selectionnés et les push dans le tabloPrice dans le but d'aditionner toute les valeurs 
-               qui nous donneront le prix total du panier  */
-				tabloPrice.push(article.price)
-				const reducer = (accumulator, currentValue) => accumulator + currentValue;
+			   qui nous donneront le prix total du panier  */
+			 
+			
+			   tabloPrice.push(article.price)
+		    	const reducer = (accumulator, currentValue) => accumulator + currentValue;
 				console.log(tabloPrice.reduce(reducer));
 				console.log(tabloPrice)
-				document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloPrice.reduce(reducer)
-
+				document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloPrice.reduce(reducer) + "&euro;"
+				
 				if (document.getElementById(responseId._id)) {
 					// si l'article existe on incrémente sa quantité 
 					var input = document.getElementById(responseId._id + "-input")
@@ -74,16 +79,17 @@ function forEach() {
 					inputValue = parseInt(inputValue);
 					inputValue = inputValue + 1
 					input.setAttribute("value", inputValue);
-
 					panier.pop()
+				    tabloPrice.pop()
 					recupIdInput = sessionStorage.getItem("panier")
 					recupIdInput = JSON.parse(recupIdInput)
 					console.log(recupIdInput)
+					
 					//  multiplie la quantité par son prix
 					for (i = 0; i < recupIdInput.length; i++) {
 						recupIdInput[i].quantiter = inputValue
 						recupIdInput[i].price = responseId.price * inputValue
-
+						
 						// ajoute autant d'id qu'il y a de quantité
 						var idPush = recupIdInput[i].id + "supprime";
 						var idPushQuantiter = idPush.repeat(inputValue)
@@ -91,6 +97,7 @@ function forEach() {
 						idQu.pop()
 
 						recupIdInput[i].quantiterId = idQu
+						
 					}
 					recupIdInput.pop()
 					// enregistre les modifications dans le panier 
@@ -107,12 +114,12 @@ function forEach() {
 
 			}
 
-		}
+        }
         // fonction uptadetotalPrice() Cette fonction doit faire une loupe à travers tout les teddy 
         // et à chaque teddy elle doit incrémenter le prix total par rapport au prix du teddy par sa quantité //
 
 		function uptadeTotalPrice() {
-
+			
 			// mettre à jour la quantité dans le local storage du produit correspondant  
 			var quantiterPanier = sessionStorage.getItem("panier")
 			quantiterPanier = JSON.parse(quantiterPanier)
@@ -135,8 +142,26 @@ function forEach() {
 				quantiter = sessionStorage.setItem("panier", quantiter_json)
 				console.log(quantiterPanier[i].price)
 
+			   var price = sessionStorage.getItem("panier")
+			  
+			   price = JSON.parse(price)
+			   for(i=0 ; i < price.length ; i++){
+				console.log(price[index].price)
+				document.getElementById(responseId._id + "-priceQuant").innerHTML= "Prix " + price[index].price + " &euro;"
+			
+				  }
+				 
+				 
+				 
+				  tabloPrice.splice(index, 1, price[index].price)
+				 // tabloPrice.push(price[index].price);
+				  
+		    	const reducer = (accumulator, currentValue) => accumulator + currentValue;
+				console.log(tabloPrice.reduce(reducer));
+				console.log(tabloPrice)
+				document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloPrice.reduce(reducer) + "&euro;"
 			}
-
+			
 		}
 
 		request.open("GET", "http://localhost:3000/api/teddies/" + article.id);
@@ -215,7 +240,7 @@ function validation(event) {
 		/* récupération du panier dans le sessionStorage, boucle permettant de recupérer l'id dans le panier 
 		 et l'inserer dans le tableau products
 		qui sera envoyé à l'API*/
-
+         
 		var recupPanier = sessionStorage.getItem("panier")
 		recupPanierParse = JSON.parse(recupPanier)
 		console.log(recupPanierParse)
@@ -243,19 +268,26 @@ function validation(event) {
 
 //FUNCTION POUR SUPPRIMER DES PRODUITS DU PANIER 
 function supprimer(index) {
+	
+	console.log(panier)
 	// get item panier supprimer le teddy  selectionner puis set item avec le nouveau panier //
-	var panier = sessionStorage.getItem("panier")
-	panier = JSON.parse(panier)
-	for (i = 0; i < panier.length; i++) {
-		console.log(panier[index].id)
+    for (i = 0; i < panier.length; i++) {
+		
+if(panier[index] === undefined){
 
+}
+else{
 		var divpanier = document.getElementById("divpanier");
 		var elementsup = document.getElementById(panier[index].id);
-
+	   var recupPanierSupprime = sessionStorage.getItem("panier")
+	   recupPanierSupprime_json = JSON.parse(recupPanierSupprime)
+		delete recupPanierSupprime_json[index]
+		delete tabloPrice[index]
 		delete panier[index]
 		console.log(panier)
+		
 		// si le tableau contient des valeurs undefined , nan , null ou '' elle seront supprimées du tableau
-		var panier_filtre = panier.filter(function(val) {
+		var panier_filtre = recupPanierSupprime_json.filter(function(val) {
 			if (val == '' || val == NaN || val == undefined || val == null) {
 				return false;
 			}
@@ -263,11 +295,25 @@ function supprimer(index) {
 		});
 		panier_filtre_json = JSON.stringify(panier_filtre)
 		panier_filtre = sessionStorage.setItem("panier", panier_filtre_json)
-		// vide la div total aprés suppression d'un produit du panier
-		document.getElementById("total").innerHTML = ""
+		// recupere le panier modifier est si length === 0 alors renvoi 0 en total commande 
+	    var recupPanierSupprime1 = sessionStorage.getItem("panier")
+	    recupPanierSupprime1_json = JSON.parse(recupPanierSupprime1)
+	    console.log(recupPanierSupprime1_json)
+	     if(recupPanierSupprime1_json.length === 0){
+		document.getElementById("total").innerHTML = "Total de votre commande: 0 &euro;"
+	    }
+
 		console.log(elementsup)
 		divpanier.removeChild(elementsup)
+		const reducer = (accumulator, currentValue) => accumulator + currentValue;
+		console.log(tabloPrice.reduce(reducer));
+		console.log(tabloPrice)
+		document.getElementById("total").innerHTML = "Total de votre commande:   " + tabloPrice.reduce(reducer) + " &euro;"
+	
+	
 	}
+	
+  }
 
 }
 
@@ -286,7 +332,8 @@ function envoiPost() {
 			produits = returnId.products
 			for (i = 0; i < produits.length; i++) {
 				console.log(produits[i].price)
-				prixTotalCommande.push(produits[i].price)
+				var ProduitCentime = produits[i].price / 100
+				prixTotalCommande.push(ProduitCentime)
 				const reducer = (accumulator, currentValue) => accumulator + currentValue;
 				console.log(prixTotalCommande.reduce(reducer));
 				document.getElementById("divpanier").innerHTML = "";
@@ -299,7 +346,7 @@ function envoiPost() {
           <h2> Votre commande a bien était valider</h2>
           <p> Nous vous remercions de votre commande <br>
           voici votre numero de commande:<br><span class="idconfirm">${returnId.orderId}</span></p>
-          <p>Le prix total de votre commande est de ${prixTotalCommande.reduce(reducer)}
+          <p>Le prix total de votre commande est de ${prixTotalCommande.reduce(reducer)}  &euro; </p>
           </div> `
 				document.getElementById("formulaire").appendChild(returnConfirm);
 			}
